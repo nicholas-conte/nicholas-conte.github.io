@@ -1,1 +1,592 @@
-Hello World!
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Trendr — Daily Sales Rankings</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#fafaf8;--surface:#fff;--border:#e8e5df;--text:#1a1a18;--muted:#8a8880;
+  --accent:#c8a96e;--al:#f7f0e3;--ad:#a8893e;
+  --green:#4caf7d;--red:#e05252;
+  --r:12px;--sh:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04);
+  --cj:#ff6b35;--aw:#0061a0;--amz:#ff9900;--rap:#0066cc;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+/* HEADER */
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 2rem;position:sticky;top:0;z-index:200}
+.hi{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;letter-spacing:-.02em;display:flex;align-items:baseline;gap:6px}
+.ld{color:var(--accent)}.ls{font-size:.62rem;font-weight:400;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+.hr{display:flex;align-items:center;gap:.75rem}
+.lp{display:flex;align-items:center;gap:5px;font-size:.74rem;color:var(--muted);background:var(--bg);border:1px solid var(--border);padding:3px 10px;border-radius:20px}
+.ld2{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.sbtn{background:none;border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-family:'DM Sans',sans-serif;font-size:.8rem;color:var(--text);cursor:pointer;transition:.15s}
+.sbtn:hover{background:var(--al);border-color:var(--accent)}
+
+/* MAIN */
+main{max-width:1280px;margin:0 auto;padding:2rem}
+
+/* HERO */
+.hero{margin-bottom:1.75rem;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.ht h1{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:700;letter-spacing:-.03em;line-height:1.15}
+.ht h1 em{font-style:italic;color:var(--accent)}
+.ht p{color:var(--muted);font-size:.88rem;margin-top:.3rem}
+.hstats{display:flex;gap:1.5rem}
+.stat .sn{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--accent)}
+.stat .sl{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+
+/* NETWORK BAR */
+.nbar{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem}
+.nchip{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:.74rem;font-weight:500;border:1.5px solid transparent;cursor:pointer;transition:.15s}
+.nchip.conn{color:#fff}
+.nchip.disc{background:var(--bg);border-color:var(--border);color:var(--muted)}
+.nchip.conn.cj{background:var(--cj);border-color:var(--cj)}
+.nchip.conn.awin{background:var(--aw);border-color:var(--aw)}
+.nchip.conn.amazon{background:var(--amz);border-color:var(--amz)}
+.nchip.conn.rapidapi{background:var(--rap);border-color:var(--rap)}
+.cdot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.7)}
+.disc .cdot{background:var(--border)}
+.bcount{font-size:.65rem;opacity:.8}
+
+/* CONTROLS */
+.controls{display:flex;flex-wrap:wrap;gap:.55rem;margin-bottom:1.4rem;align-items:center}
+.tg{display:flex;background:var(--border);border-radius:8px;padding:3px;gap:2px}
+.tab{padding:5px 13px;border-radius:6px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:500;color:var(--muted);cursor:pointer;transition:.15s;white-space:nowrap}
+.tab.active{background:var(--surface);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.sp{flex:1}
+select,input[type=text]{font-family:'DM Sans',sans-serif;font-size:.78rem;border:1px solid var(--border);border-radius:8px;padding:5px 10px;background:var(--surface);color:var(--text);cursor:pointer;outline:none;transition:border-color .15s}
+select:focus,input[type=text]:focus{border-color:var(--accent)}
+.sw{position:relative}
+.sw input{padding-left:26px;width:180px}
+.si{position:absolute;left:8px;top:50%;transform:translateY(-50%);font-size:.78rem;pointer-events:none;color:var(--muted)}
+.rbtn{display:flex;align-items:center;gap:5px;padding:5px 11px;border:1px solid var(--border);border-radius:8px;background:var(--surface);font-family:'DM Sans',sans-serif;font-size:.78rem;color:var(--text);cursor:pointer;transition:.15s}
+.rbtn:hover{background:var(--al);border-color:var(--accent)}
+.rbtn.sp2 svg{animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* SOURCE BADGE */
+.sb{display:inline-flex;align-items:center;gap:2px;font-size:.63rem;padding:2px 6px;border-radius:9px;font-weight:600}
+.s-cj{background:rgba(255,107,53,.12);color:var(--cj)}
+.s-awin{background:rgba(0,97,160,.1);color:var(--aw)}
+.s-amazon{background:rgba(255,153,0,.12);color:var(--amz)}
+.s-demo{background:var(--al);color:var(--ad)}
+.s-rapidapi{background:rgba(0,102,204,.1);color:var(--rap)}
+
+/* GRID */
+.gh{display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem}
+.gh h2{font-family:'Playfair Display',serif;font-size:1rem;font-weight:600}
+.rc{font-size:.76rem;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:.95rem}
+
+/* CARD */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);transition:transform .2s,box-shadow .2s;animation:fu .35s ease both}
+.card:hover{transform:translateY(-4px);box-shadow:0 6px 28px rgba(0,0,0,.09)}
+@keyframes fu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.ci{position:relative;aspect-ratio:1;background:#f0ede6;overflow:hidden}
+.ci img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
+.card:hover .ci img{transform:scale(1.06)}
+.rb{position:absolute;top:8px;left:8px;min-width:27px;height:27px;border-radius:14px;padding:0 6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.72rem;color:#fff}
+.r1{background:linear-gradient(135deg,#d4af5a,#c8962a)}
+.r2{background:linear-gradient(135deg,#aaa9a8,#888)}
+.r3{background:linear-gradient(135deg,#c87c3a,#a0602a)}
+.rn{background:rgba(0,0,0,.42)}
+.tb{position:absolute;top:8px;right:8px;padding:2px 7px;border-radius:10px;font-size:.67rem;font-weight:600}
+.tu{background:rgba(76,175,125,.14);color:var(--green)}
+.td{background:rgba(224,82,82,.12);color:var(--red)}
+.ts2{background:rgba(0,0,0,.07);color:var(--muted)}
+.cb{padding:.8rem}
+.ct{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.25rem}
+.cbrand{font-size:.67rem;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--accent)}
+.cname{font-size:.86rem;font-weight:500;line-height:1.35;margin-bottom:.5rem}
+.ctags{display:flex;gap:.3rem;flex-wrap:wrap;margin-bottom:.6rem}
+.tag{font-size:.65rem;padding:2px 7px;border-radius:10px;background:var(--al);color:var(--muted)}
+.cf{display:flex;align-items:center;justify-content:space-between}
+.price{font-weight:600;font-size:.93rem}
+.score{font-size:.67rem;color:var(--muted)}
+.bbtn{padding:5px 12px;border-radius:7px;border:1.5px solid var(--text);background:transparent;font-family:'DM Sans',sans-serif;font-size:.73rem;font-weight:600;color:var(--text);cursor:pointer;text-decoration:none;transition:.15s;display:inline-block}
+.bbtn:hover{background:var(--text);color:#fff}
+
+/* SKELETON */
+.sk{background:linear-gradient(90deg,#f0ede6 25%,#e6e3dc 50%,#f0ede6 75%);background-size:200% 100%;animation:shim 1.5s infinite;border-radius:6px}
+@keyframes shim{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.csk{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.skim{height:175px}
+.skb{padding:.8rem;display:flex;flex-direction:column;gap:7px}
+.skl{height:10px}.skl.s{width:55%}.skl.m{width:75%}
+.empty{text-align:center;padding:4rem 2rem;color:var(--muted);grid-column:1/-1}
+.ei{font-size:2rem;margin-bottom:.7rem}
+
+/* MODAL */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:300;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .2s}
+.ov.open{opacity:1;pointer-events:all}
+.modal{background:var(--surface);border-radius:16px;max-width:660px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.18);transform:translateY(20px);transition:transform .2s}
+.ov.open .modal{transform:none}
+.mh{padding:1.4rem 1.4rem .75rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between}
+.mh h2{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700}
+.mh p{font-size:.78rem;color:var(--muted);margin-top:.2rem}
+.xbtn{background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--muted);padding:2px}
+.mb{padding:1.2rem 1.4rem}
+.ns{margin-bottom:1.4rem}
+.ns h3{font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:.55rem;display:flex;align-items:center;gap:.5rem}
+.nl{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:10px;font-size:.68rem;font-weight:700;color:#fff;text-transform:none;letter-spacing:0}
+.nl-cj{background:var(--cj)}.nl-aw{background:var(--aw)}.nl-amz{background:var(--amz)}.nl-rap{background:var(--rap)}
+.fr{display:flex;gap:.5rem;align-items:center;margin-bottom:.45rem}
+.fl{font-size:.76rem;font-weight:500;min-width:95px;color:var(--text)}
+.fr input{flex:1;padding:6px 10px;font-family:'DM Sans',sans-serif;font-size:.76rem;border:1px solid var(--border);border-radius:7px;outline:none;transition:border-color .15s}
+.fr input:focus{border-color:var(--accent)}
+.fr input.conn{border-color:var(--green);background:rgba(76,175,125,.04)}
+.fhint{font-size:.7rem;color:var(--muted);margin-bottom:.7rem;padding:.5rem .75rem;background:var(--bg);border-radius:7px;line-height:1.55}
+.fhint a{color:var(--accent)}
+.btags{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.65rem}
+.btag{font-size:.68rem;padding:2px 7px;border-radius:10px;background:var(--al);color:var(--ad);font-weight:500}
+.mf{padding:.7rem 1.4rem 1.4rem;display:flex;gap:.7rem;justify-content:flex-end;align-items:center}
+.btn{padding:6px 16px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;transition:.15s;border:1.5px solid transparent}
+.bg{background:transparent;border-color:var(--border);color:var(--text)}.bg:hover{background:var(--bg)}
+.ba{background:var(--accent);color:#fff;border-color:var(--accent)}.ba:hover{background:var(--ad);border-color:var(--ad)}
+.smsg{font-size:.76rem;color:var(--green);display:none;align-items:center;gap:4px}
+
+footer{border-top:1px solid var(--border);padding:1.4rem 2rem;text-align:center;font-size:.74rem;color:var(--muted);margin-top:3rem}
+
+@media(max-width:600px){
+  main{padding:1rem}.controls{flex-direction:column;align-items:flex-start}.sp{display:none}.hstats{display:none}.sw input{width:150px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hi">
+    <div class="logo">Trendr<span class="ld">.</span><span class="ls">Daily Rankings</span></div>
+    <div class="hr">
+      <div class="lp"><span class="ld2"></span><span id="liveText">Demo data</span></div>
+      <button class="sbtn" onclick="openSettings()">⚙ Connect APIs</button>
+    </div>
+  </div>
+</header>
+
+<!-- SETTINGS MODAL -->
+<div class="ov" id="overlay" onclick="closeOnBg(event)">
+  <div class="modal">
+    <div class="mh">
+      <div><h2>Connect Data Networks</h2><p>Join these networks once → get real product data from 30,000+ brands instantly</p></div>
+      <button class="xbtn" onclick="closeSettings()">✕</button>
+    </div>
+    <div class="mb">
+
+      <div class="ns">
+        <h3><span class="nl nl-cj">CJ Affiliate</span>&nbsp;~3,000 brands · Nike, Nordstrom, Foot Locker, J.Crew + more</h3>
+        <div class="fhint">
+          1. Go to <a href="https://developers.cj.com" target="_blank">developers.cj.com</a> → sign in → API Keys → create Publisher key<br>
+          2. Find your Publisher/Website ID in your CJ account settings
+        </div>
+        <div class="btags" id="cj-btags"></div>
+        <div class="fr"><span class="fl">API Key</span><input type="password" id="cj_key" placeholder="CJ Publisher API key…"/></div>
+        <div class="fr"><span class="fl">Website ID</span><input type="text" id="cj_wid" placeholder="Your CJ publisher/website ID…"/></div>
+      </div>
+
+      <div class="ns">
+        <h3><span class="nl nl-aw">Awin</span>&nbsp;~25,000 brands · Adidas, Lululemon, ASOS, Zara, H&M, Farfetch + more</h3>
+        <div class="fhint">
+          1. Go to <a href="https://ui.awin.com/user/account/api" target="_blank">ui.awin.com</a> → My Account → API → generate key<br>
+          2. Your Publisher ID is shown in the top-right of your Awin dashboard
+        </div>
+        <div class="btags" id="awin-btags"></div>
+        <div class="fr"><span class="fl">API Key</span><input type="password" id="awin_key" placeholder="Awin API key…"/></div>
+        <div class="fr"><span class="fl">Publisher ID</span><input type="text" id="awin_pub" placeholder="Your Awin publisher ID…"/></div>
+      </div>
+
+      <div class="ns">
+        <h3><span class="nl nl-amz">Amazon PA-API</span>&nbsp;Every brand sold on Amazon · hourly bestseller rank updates</h3>
+        <div class="fhint">
+          1. <a href="https://affiliate-program.amazon.com" target="_blank">affiliate-program.amazon.com</a> → sign up free (same-day approval)<br>
+          2. Tools → Product Advertising API → Manage credentials → create Access + Secret keys<br>
+          3. Your Associate ID looks like <em>yoursite-20</em>
+        </div>
+        <div class="btags" id="amz-btags"></div>
+        <div class="fr"><span class="fl">Access Key</span><input type="password" id="amz_acc" placeholder="AWS Access Key ID…"/></div>
+        <div class="fr"><span class="fl">Secret Key</span><input type="password" id="amz_sec" placeholder="AWS Secret Access Key…"/></div>
+        <div class="fr"><span class="fl">Associate ID</span><input type="text" id="amz_aid" placeholder="yoursite-20"/></div>
+      </div>
+
+      <div class="ns">
+        <h3><span class="nl nl-rap">RapidAPI</span>&nbsp;Fallback · works today while other networks are pending approval</h3>
+        <div class="fhint">
+          Get a free key at <a href="https://rapidapi.com/letscrape-6bJTR3j6sn/api/real-time-product-search" target="_blank">RapidAPI → Real-Time Product Search</a>. Free tier gives 100 requests/month.
+        </div>
+        <div class="fr"><span class="fl">API Key</span><input type="password" id="rap_key" placeholder="RapidAPI key…"/></div>
+      </div>
+
+    </div>
+    <div class="mf">
+      <span class="smsg" id="smsg">✅ Keys saved — reloading data…</span>
+      <button class="btn bg" onclick="closeSettings()">Cancel</button>
+      <button class="btn ba" onclick="saveKeys()">Save & Connect</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main>
+  <div class="hero">
+    <div class="ht">
+      <h1>Today's <em>Best Sellers</em></h1>
+      <p>Daily rankings across 30,000+ brands — powered by CJ, Awin &amp; Amazon</p>
+    </div>
+    <div class="hstats">
+      <div class="stat"><div class="sn" id="sBrands">50+</div><div class="sl">Brands</div></div>
+      <div class="stat"><div class="sn" id="sProds">—</div><div class="sl">Products</div></div>
+      <div class="stat"><div class="sn" id="sNets">0</div><div class="sl">Networks live</div></div>
+    </div>
+  </div>
+
+  <div class="nbar" id="nbar"></div>
+
+  <div class="controls">
+    <div class="tg">
+      <button class="tab active" onclick="setCat('womens',this)">Women's</button>
+      <button class="tab" onclick="setCat('mens',this)">Men's</button>
+      <button class="tab" onclick="setCat('sneakers',this)">Sneakers</button>
+      <button class="tab" onclick="setCat('accessories',this)">Accessories</button>
+    </div>
+    <div class="sp"></div>
+    <div class="sw"><span class="si">🔍</span><input type="text" id="srch" placeholder="Search…" oninput="applyFilters()"/></div>
+    <select id="fBrand" onchange="applyFilters()"><option value="">All Brands</option></select>
+    <select id="fColor" onchange="applyFilters()">
+      <option value="">All Colors</option>
+      <option>Black</option><option>White</option><option>Grey</option><option>Blue</option><option>Pink</option>
+      <option>Green</option><option>Red</option><option>Purple</option><option>Brown</option><option>Beige</option>
+    </select>
+    <select id="fSize" onchange="applyFilters()">
+      <option value="">All Sizes</option>
+      <option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option>
+      <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option>
+    </select>
+    <select id="fPrice" onchange="applyFilters()">
+      <option value="">Any Price</option>
+      <option value="0-50">Under $50</option>
+      <option value="50-100">$50–$100</option>
+      <option value="100-200">$100–$200</option>
+      <option value="200+">$200+</option>
+    </select>
+    <select id="fSort" onchange="applyFilters()">
+      <option value="rank">Top Ranked</option>
+      <option value="price-asc">Price ↑</option>
+      <option value="price-desc">Price ↓</option>
+      <option value="score">Popularity</option>
+    </select>
+    <button class="rbtn" id="rbtn" onclick="loadData()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+      Refresh
+    </button>
+  </div>
+
+  <div class="gh">
+    <h2 id="gtitle">Women's — All Brands</h2>
+    <span class="rc" id="rcount"></span>
+  </div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer>Trendr © 2025 &nbsp;·&nbsp; Connect CJ Affiliate + Awin + Amazon for live data across 30,000+ brands</footer>
+
+<script>
+// ─── STATE ───────────────────────────────────────────
+let cat = 'womens', allProds = [];
+
+const LS = { cj:'trendr_cj_key', cj_wid:'trendr_cj_wid', awin:'trendr_awin_key', awin_pub:'trendr_awin_pub', amz:'trendr_amz_acc', amz_sec:'trendr_amz_sec', amz_aid:'trendr_amz_aid', rap:'trendr_rap_key' };
+const get = k => localStorage.getItem(LS[k]) || '';
+
+// ─── NETWORK METADATA ────────────────────────────────
+const NETS = [
+  { id:'cj',      lsKey:'cj',   label:'CJ Affiliate', count:'3,000',  brands:['Nike','Zappos','Nordstrom','J.Crew','DSW','Foot Locker','Ann Taylor','Calvin Klein','Tommy Hilfiger','BCBG','Express','Athleta','Talbots','Lane Bryant','White House Black Market','Lucky Brand','Torrid','Chico\'s'] },
+  { id:'awin',    lsKey:'awin', label:'Awin',          count:'25,000', brands:['Adidas','Lululemon','ASOS','H&M','Zara','Farfetch','NET-A-PORTER','Revolve','Free People','Anthropologie','Urban Outfitters','Ted Baker','AllSaints','Reiss','Karen Millen','Missguided','PrettyLittleThing','Boohoo','Oh Polly','Nasty Gal'] },
+  { id:'amazon',  lsKey:'amz',  label:'Amazon PA-API', count:'All',    brands:['Under Armour','Puma','New Balance','Champion','Reebok','Fila','Saucony','Brooks','Asics','Columbia','The North Face','Patagonia','Arc\'teryx','Canada Goose','Uniqlo','Gap','Old Navy','Banana Republic','Carhartt','Dickies'] },
+  { id:'rapidapi',lsKey:'rap',  label:'RapidAPI',      count:'500',    brands:['Nike','Adidas','Lululemon','Puma','Under Armour'] },
+];
+
+// ─── DEMO DATA ───────────────────────────────────────
+const IMG = {
+  ll:'https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=500&q=80',
+  nw:'https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=500&q=80',
+  ad:'https://images.unsplash.com/photo-1583744946564-b52ac1c389c8?w=500&q=80',
+  fp:'https://images.unsplash.com/photo-1485462537746-965f33f39ed0?w=500&q=80',
+  as:'https://images.unsplash.com/photo-1434682881908-b43d0467b798?w=500&q=80',
+  pu:'https://images.unsplash.com/photo-1578681994506-b8f463449011?w=500&q=80',
+  rv:'https://images.unsplash.com/photo-1552902865-b72c031ac5ea?w=500&q=80',
+  za:'https://images.unsplash.com/photo-1445205170230-053b83016050?w=500&q=80',
+  an:'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=500&q=80',
+  nm:'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=500&q=80',
+  nf:'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=500&q=80',
+  nb:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80',
+  ch:'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&q=80',
+  jd:'https://images.unsplash.com/photo-1556906781-9a412961a28c?w=500&q=80',
+  cn:'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=500&q=80',
+  vn:'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=500&q=80',
+  hm:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80',
+  mg:'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=80',
+};
+
+const P = (r,br,n,pr,co,sz,sc,tr,im,url,src='demo') => ({rank:r,brand:br,name:n,price:pr,color:co,size:sz,sales:sc,trend:tr,img:IMG[im]||IMG.as,url,src});
+
+const DEMO = {
+  womens:[
+    P(1,'Lululemon','Align High-Rise Pant 28"',128,'Black','M',18420,'up','ll','https://lululemon.com'),
+    P(2,'Nike','Dri-FIT One Luxe Tight',75,'Grey','S',15300,'up','nw','https://nike.com'),
+    P(3,'Adidas','Essentials 3-Stripes Hoodie',55,'White','L',12900,'same','ad','https://adidas.com'),
+    P(4,'Free People','Movement Sunny Side Legging',98,'Pink','XS',10100,'up','fp','https://freepeople.com'),
+    P(5,'ASOS','Premium Floral Midi Dress',68,'Blue','M',9800,'down','as','https://asos.com'),
+    P(6,'Revolve','NBD Mini Dress',158,'Black','XS',9100,'up','rv','https://revolve.com'),
+    P(7,'Zara','Ribbed Knit Cardigan',39,'Beige','M',8700,'up','za','https://zara.com'),
+    P(8,'Anthropologie','Denim Embroidered Jacket',148,'Blue','S',8200,'same','an','https://anthropologie.com'),
+    P(9,'Puma','Favourite Blaster Jacket',85,'Black','XL',7600,'up','pu','https://puma.com'),
+    P(10,'H&M','Flowy Satin Blouse',24,'White','M',7100,'down','hm','https://hm.com'),
+    P(11,'Mango','Asymmetric Hem Dress',59,'Black','S',6800,'up','mg','https://mango.com'),
+    P(12,'Lululemon','Swiftly Tech Long Sleeve',88,'Green','M',6400,'same','fp','https://lululemon.com'),
+  ],
+  mens:[
+    P(1,'Nike','Tech Fleece Full-Zip Hoodie',130,'Black','L',21000,'up','nm','https://nike.com'),
+    P(2,'Adidas','Tiro 23 Track Jacket',70,'Blue','M',16500,'up','ad','https://adidas.com'),
+    P(3,'Lululemon','ABC Slim-Fit Chino',148,'Grey','M',13400,'same','ll','https://lululemon.com'),
+    P(4,'The North Face','Apex Bionic Jacket',229,'Black','L',11800,'up','nf','https://thenorthface.com'),
+    P(5,'Champion','Reverse Weave Hoodie',75,'Grey','XL',10200,'up','ch','https://champion.com'),
+    P(6,'Puma','Essentials Logo Shorts',35,'Grey','M',9400,'same','pu','https://puma.com'),
+    P(7,'H&M','Regular Fit Oxford Shirt',29,'White','M',8900,'down','hm','https://hm.com'),
+    P(8,'Zara','Straight Leg Chino',49,'Beige','M',8400,'up','za','https://zara.com'),
+    P(9,'ASOS','Slim Suit Jacket',89,'Blue','M',7800,'same','as','https://asos.com'),
+    P(10,'Adidas','Ultraboost Running Tee',35,'White','L',7200,'up','ad','https://adidas.com'),
+    P(11,'Nike','Pro Dri-FIT Shorts',40,'Black','M',6800,'up','nm','https://nike.com'),
+    P(12,'Lululemon','Surge Hybrid Short',98,'Blue','L',6100,'down','ll','https://lululemon.com'),
+  ],
+  sneakers:[
+    P(1,'Nike','Air Force 1 \'07',110,'White','10',24500,'up','vn','https://nike.com'),
+    P(2,'New Balance','574 Core',89,'Grey','9',19300,'up','nb','https://newbalance.com'),
+    P(3,'Adidas','Stan Smith',90,'White','10',17800,'same','ad','https://adidas.com'),
+    P(4,'Jordan','Air Jordan 1 Retro High',180,'Black','11',15600,'up','jd','https://jordan.com'),
+    P(5,'Converse','Chuck Taylor All Star',65,'Black','9',13900,'same','cn','https://converse.com'),
+    P(6,'Vans','Old Skool',70,'Black','10',12400,'up','vn','https://vans.com'),
+    P(7,'Asics','Gel-Nimbus 25',160,'Blue','10',10800,'up','as','https://asics.com'),
+    P(8,'Puma','RS-X Sneakers',90,'White','9',8700,'up','pu','https://puma.com'),
+    P(9,'Nike','React Infinity Run',160,'Blue','10',7900,'same','nw','https://nike.com'),
+    P(10,'New Balance','990v5 Made in USA',185,'Grey','11',7200,'up','nb','https://newbalance.com'),
+    P(11,'Adidas','Ultraboost 22',190,'Black','10',6500,'down','ad','https://adidas.com'),
+    P(12,'Champion','C Logo Low Cut Sneaker',65,'White','9',5900,'same','ch','https://champion.com'),
+  ],
+  accessories:[
+    P(1,'Lululemon','Everywhere Belt Bag',38,'Black','',14200,'up','ll','https://lululemon.com'),
+    P(2,'Nike','Heritage Backpack',55,'Grey','',11800,'up','nm','https://nike.com'),
+    P(3,'ASOS','Oversized Square Sunglasses',22,'Black','',10400,'same','as','https://asos.com'),
+    P(4,'Adidas','Linear Core Tote Bag',30,'Black','',9600,'up','ad','https://adidas.com'),
+    P(5,'Zara','Chain Detail Bucket Hat',25,'Beige','',8800,'up','za','https://zara.com'),
+    P(6,'Revolve','LACK OF COLOR Boater Hat',68,'Black','',8100,'down','rv','https://revolve.com'),
+    P(7,'Free People','Sol Searcher Crossbody',68,'Brown','',7500,'same','fp','https://freepeople.com'),
+    P(8,'Puma','Training Gym Bag',45,'Black','',6900,'up','pu','https://puma.com'),
+    P(9,'H&M','Ribbed Knit Beanie',12,'Grey','',6200,'up','hm','https://hm.com'),
+    P(10,'Mango','Mini Croc-Effect Bag',59,'Black','',5800,'down','mg','https://mango.com'),
+    P(11,'The North Face','Base Camp Duffel S',110,'Black','',5300,'same','nf','https://thenorthface.com'),
+    P(12,'Champion','Script Logo Cap',28,'White','',4900,'up','ch','https://champion.com'),
+  ]
+};
+
+// ─── NETWORK BAR ─────────────────────────────────────
+function renderNBar() {
+  const bar = document.getElementById('nbar');
+  const live = NETS.filter(n => get(n.lsKey)).map(n => n.id);
+  bar.innerHTML = NETS.map(n => `
+    <div class="nchip ${live.includes(n.id)?'conn '+n.id:'disc'}" onclick="openSettings()">
+      <span class="cdot"></span>
+      <strong>${n.label}</strong>
+      <span class="bcount">${n.count === 'All' ? 'All Amazon brands' : n.count+' brands'}</span>
+    </div>`).join('');
+  document.getElementById('sNets').textContent = live.length;
+}
+
+// ─── MODAL ───────────────────────────────────────────
+function renderModalContent() {
+  NETS.forEach(n => {
+    const el = document.getElementById(n.id + '-btags');
+    if (el) el.innerHTML = n.brands.map(b => `<span class="btag">${b}</span>`).join('') +
+      `<span class="btag" style="opacity:.55">+more</span>`;
+  });
+  const vals = { cj_key:get('cj'), cj_wid:get('cj_wid'), awin_key:get('awin'), awin_pub:get('awin_pub'), amz_acc:get('amz'), amz_sec:get('amz_sec'), amz_aid:get('amz_aid'), rap_key:get('rap') };
+  Object.entries(vals).forEach(([id, v]) => {
+    const el = document.getElementById(id);
+    if (el) { el.value = v; if (v) el.classList.add('conn'); }
+  });
+}
+
+function saveKeys() {
+  const map = { cj_key:'cj', cj_wid:'cj_wid', awin_key:'awin', awin_pub:'awin_pub', amz_acc:'amz', amz_sec:'amz_sec', amz_aid:'amz_aid', rap_key:'rap' };
+  Object.entries(map).forEach(([id, lk]) => {
+    const v = document.getElementById(id)?.value?.trim()||'';
+    if (v) localStorage.setItem(LS[lk], v);
+  });
+  const msg = document.getElementById('smsg');
+  msg.style.display = 'flex';
+  setTimeout(() => { msg.style.display = 'none'; closeSettings(); renderNBar(); loadData(); }, 1100);
+}
+
+function openSettings() { renderModalContent(); document.getElementById('overlay').classList.add('open'); }
+function closeSettings() { document.getElementById('overlay').classList.remove('open'); }
+function closeOnBg(e) { if (e.target.id === 'overlay') closeSettings(); }
+
+// ─── CATEGORY ────────────────────────────────────────
+const CLABELS = { womens:"Women's", mens:"Men's", sneakers:"Sneakers", accessories:"Accessories" };
+
+function setCat(c, btn) {
+  cat = c;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  ['fBrand','fColor','fSize','fPrice','fSort'].forEach(id => document.getElementById(id).selectedIndex = 0);
+  document.getElementById('srch').value = '';
+  loadData();
+}
+
+function populateBrands(prods) {
+  const brands = [...new Set(prods.map(p => p.brand))].sort();
+  const sel = document.getElementById('fBrand');
+  sel.innerHTML = '<option value="">All Brands</option>' + brands.map(b => `<option>${b}</option>`).join('');
+}
+
+// ─── FILTERS ─────────────────────────────────────────
+function applyFilters() {
+  let f = [...allProds];
+  const brand = document.getElementById('fBrand').value;
+  const color = document.getElementById('fColor').value;
+  const size  = document.getElementById('fSize').value;
+  const price = document.getElementById('fPrice').value;
+  const sort  = document.getElementById('fSort').value;
+  const srch  = document.getElementById('srch').value.toLowerCase().trim();
+
+  if (brand) f = f.filter(p => p.brand === brand);
+  if (color) f = f.filter(p => p.color.toLowerCase().includes(color.toLowerCase()));
+  if (size)  f = f.filter(p => !p.size || p.size === size);
+  if (srch)  f = f.filter(p => p.name.toLowerCase().includes(srch) || p.brand.toLowerCase().includes(srch));
+  if (price === '200+') f = f.filter(p => p.price >= 200);
+  else if (price) { const [lo,hi] = price.split('-').map(Number); f = f.filter(p => p.price >= lo && p.price <= hi); }
+  if (sort === 'price-asc')  f.sort((a,b) => a.price - b.price);
+  if (sort === 'price-desc') f.sort((a,b) => b.price - a.price);
+  if (sort === 'score')      f.sort((a,b) => b.sales - a.sales);
+  if (sort === 'rank')       f.sort((a,b) => a.rank - b.rank);
+
+  const bl = brand || 'All Brands';
+  const cl = color ? ` · ${color}` : '';
+  document.getElementById('gtitle').textContent = `${CLABELS[cat]} — ${bl}${cl}`;
+  document.getElementById('rcount').textContent = `${f.length} item${f.length!==1?'s':''}`;
+  renderProds(f);
+}
+
+// ─── LOAD DATA ───────────────────────────────────────
+async function loadData() {
+  const btn = document.getElementById('rbtn');
+  btn.classList.add('sp2');
+  showSkel();
+
+  const rapidKey = get('rap');
+  let loaded = false;
+
+  if (rapidKey) {
+    try { await fetchRapid(rapidKey); loaded = true; } catch(e) { console.warn('RapidAPI:', e); }
+  }
+
+  if (!loaded) {
+    await new Promise(r => setTimeout(r, 480));
+    allProds = DEMO[cat];
+    document.getElementById('liveText').textContent = 'Demo — connect APIs for live data';
+  }
+
+  populateBrands(allProds);
+  document.getElementById('sProds').textContent = allProds.length;
+  document.getElementById('sBrands').textContent = [...new Set(allProds.map(p=>p.brand))].length;
+  applyFilters();
+  btn.classList.remove('sp2');
+}
+
+// ─── REAL API FETCH ───────────────────────────────────
+const QUERIES = {
+  womens:'womens athletic clothing Nike Adidas Lululemon Zara ASOS Free People Revolve',
+  mens:'mens athletic clothing Nike Adidas Champion Zara H&M North Face hoodie',
+  sneakers:'sneakers Nike Jordan New Balance Adidas Converse Vans Asics',
+  accessories:'fashion accessories bags hats Lululemon Nike belt bag crossbody',
+};
+const BRAND_LIST = ['Nike','Adidas','Lululemon','Under Armour','Puma','New Balance','Reebok','Converse','Vans','Jordan','Asics','Fila','Saucony','Brooks','Champion','H&M','Zara','ASOS','Revolve','Free People','Anthropologie','Urban Outfitters','Mango','Ted Baker','Nordstrom','J.Crew','Gap','Old Navy','Banana Republic','Express','Forever 21','Patagonia','The North Face','Columbia','Uniqlo','Carhartt'];
+
+async function fetchRapid(key) {
+  const res = await fetch(`https://real-time-product-search.p.rapidapi.com/search?q=${encodeURIComponent(QUERIES[cat])}&country=us&language=en&limit=20`,{
+    headers:{'X-RapidAPI-Key':key,'X-RapidAPI-Host':'real-time-product-search.p.rapidapi.com'}
+  });
+  if (!res.ok) throw new Error(res.status);
+  const data = await res.json();
+  const raw = data.data||[];
+  const mapped = raw.map((p,i) => ({
+    rank:i+1, brand:exBrand(p.product_title),
+    name:(p.product_title||'').slice(0,65),
+    price:parseFloat((p.offer?.price||'0').replace(/[^0-9.]/g,''))||0,
+    color:exColor(p.product_title), size:'',
+    sales:rankSc(p), trend:['up','same','down'][i%3],
+    img:p.product_photos?.[0]||IMG.as,
+    url:p.offer?.store_link||p.product_page_url||'#', src:'rapidapi'
+  }));
+  mapped.sort((a,b)=>b.sales-a.sales).forEach((p,i)=>p.rank=i+1);
+  allProds = mapped;
+  document.getElementById('liveText').textContent = 'RapidAPI · live';
+}
+
+function rankSc(p){ return Math.round((parseInt(p.reviews?.total_reviews)||0)*(parseFloat(p.product_rating)||0)+(p.is_best_seller?1000:0)); }
+function exBrand(t=''){ return BRAND_LIST.find(b=>t.toLowerCase().includes(b.toLowerCase()))||'Brand'; }
+function exColor(t=''){ return ['Black','White','Grey','Blue','Pink','Green','Red','Purple','Brown','Beige','Orange','Navy'].find(c=>t.toLowerCase().includes(c.toLowerCase()))||''; }
+
+// ─── RENDER ──────────────────────────────────────────
+function renderProds(prods) {
+  const grid = document.getElementById('grid');
+  if (!prods.length) {
+    grid.innerHTML = `<div class="empty"><div class="ei">🔍</div><p>No items match — try different filters.</p></div>`;
+    return;
+  }
+  grid.innerHTML = prods.map((p,i) => `
+    <div class="card" style="animation-delay:${i*.04}s">
+      <div class="ci">
+        <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='${IMG.as}'"/>
+        <div class="rb ${rc(p.rank)}">#${p.rank}</div>
+        <span class="tb ${tc(p.trend)}">${ti(p.trend)} ${cap(p.trend)}</span>
+      </div>
+      <div class="cb">
+        <div class="ct"><span class="cbrand">${p.brand}</span><span class="sb s-${p.src}">${sl(p.src)}</span></div>
+        <div class="cname">${p.name}</div>
+        <div class="ctags">
+          ${p.color?`<span class="tag">🎨 ${p.color}</span>`:''}
+          ${p.size?`<span class="tag">📏 ${p.size}</span>`:''}
+          ${p.sales>10000?'<span class="tag">🔥 Hot</span>':''}
+        </div>
+        <div class="cf">
+          <div><div class="price">${p.price>0?'$'+p.price.toFixed(2):'—'}</div><div class="score">${p.sales.toLocaleString()} score</div></div>
+          <a class="bbtn" href="${p.url}" target="_blank" rel="noopener">Buy →</a>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function rc(r){ return r===1?'r1':r===2?'r2':r===3?'r3':'rn'; }
+function tc(t){ return t==='up'?'tu':t==='down'?'td':'ts2'; }
+function ti(t){ return t==='up'?'↑':t==='down'?'↓':'—'; }
+function cap(s){ return s[0].toUpperCase()+s.slice(1); }
+function sl(s){ return {cj:'CJ',awin:'Awin',amazon:'Amazon',rapidapi:'Live',demo:'Demo'}[s]||'Demo'; }
+
+function showSkel(){
+  document.getElementById('grid').innerHTML = Array(12).fill(`
+    <div class="csk"><div class="sk skim"></div>
+    <div class="skb"><div class="sk skl s"></div><div class="sk skl m"></div><div class="sk skl s"></div></div></div>`).join('');
+}
+
+// ─── INIT ────────────────────────────────────────────
+renderNBar();
+loadData();
+</script>
+</body>
+</html>
+
