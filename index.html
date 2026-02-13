@@ -3,7 +3,18 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Trendr — Daily Sales Rankings</title>
+<title>Trendr Shop — Daily Sales Rankings</title>
+<meta name="description" content="Daily rankings of the best-selling fashion and athletic apparel across Nike, Adidas, Lululemon, ASOS and 3,000+ brands. Updated daily."/>
+<meta name="theme-color" content="#c8a96e"/>
+<!-- Open Graph (looks good when shared on iMessage, Twitter, etc.) -->
+<meta property="og:title" content="Trendr Shop — Today's Best Sellers"/>
+<meta property="og:description" content="Daily sales rankings across Nike, Adidas, Lululemon and 3,000+ brands. Filter by color, size, price and more."/>
+<meta property="og:url" content="https://trendrshop.me"/>
+<meta property="og:type" content="website"/>
+<!-- Twitter card -->
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Trendr Shop — Daily Rankings"/>
+<meta name="twitter:description" content="Best-selling fashion ranked daily across 3,000+ brands."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
@@ -342,8 +353,16 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;text-align:center;
       </div>
       <div class="ns">
         <h3><span class="nl nl-rap">RapidAPI</span> Fallback · works immediately</h3>
-        <div class="fhint">Free key at <a href="https://rapidapi.com/letscrape-6bJTR3j6sn/api/real-time-product-search" target="_blank">RapidAPI → Real-Time Product Search</a>. 100 req/month free.</div>
-        <div class="fr"><span class="fl">API Key</span><input type="password" id="rap_key" placeholder="RapidAPI key…"/></div>
+        <div class="fhint">Free key at <a href="https://rapidapi.com/letscrape-6bJTR3j6sn/api/real-time-product-search" target="_blank">RapidAPI → Real-Time Product Search</a>. 100 req/month free.<br>
+        <strong>How to get it:</strong> Sign up → search "Real-Time Product Search" → Subscribe (free tier) → copy the <em>X-RapidAPI-Key</em> from the code examples.</div>
+        <div class="fr">
+          <span class="fl">API Key</span>
+          <input type="password" id="rap_key" placeholder="Paste your X-RapidAPI-Key here…" oninput="clearTestResult()"/>
+        </div>
+        <div style="display:flex;gap:.5rem;align-items:center;margin-top:.4rem">
+          <button class="btn bg" id="testBtn" onclick="testRapidKey()" style="font-size:.74rem;padding:5px 12px">🔌 Test Key</button>
+          <span id="testResult" style="font-size:.76rem"></span>
+        </div>
       </div>
     </div>
     <div class="mf">
@@ -359,7 +378,7 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;text-align:center;
   <div class="hero">
     <div class="ht">
       <h1>Today's <em>Best Sellers</em></h1>
-      <p>Daily rankings across 30,000+ brands — powered by CJ, Awin &amp; Amazon</p>
+      <p>Daily rankings across 30,000+ brands — <a href="https://trendrshop.me" style="color:var(--accent);text-decoration:none">trendrshop.me</a></p>
     </div>
     <div class="hstats">
       <div class="stat"><div class="sn" id="sBrands">—</div><div class="sl">Brands</div></div>
@@ -430,7 +449,7 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;text-align:center;
   <p class="pg-info" id="pgInfo"></p>
 </main>
 
-<footer>Trendr © 2025 &nbsp;·&nbsp; Connect CJ + Awin + Amazon for live data across 30,000+ brands &nbsp;·&nbsp; Rankings refresh daily</footer>
+<footer>© 2025 <a href="https://trendrshop.me" style="color:var(--accent);text-decoration:none">trendrshop.me</a> &nbsp;·&nbsp; Daily rankings across 30,000+ brands &nbsp;·&nbsp; Rankings refresh daily</footer>
 
 <script>
 'use strict';
@@ -611,11 +630,73 @@ function renderModalContent() {
   const vals = {cj_key:lsGet('cj'),cj_wid:lsGet('cj_wid'),awin_key:lsGet('awin'),awin_pub:lsGet('awin_pub'),amz_acc:lsGet('amz'),amz_sec:lsGet('amz_sec'),amz_aid:lsGet('amz_aid'),rap_key:lsGet('rap')};
   Object.entries(vals).forEach(([id,v]) => { const el=document.getElementById(id); if(el){el.value=v;if(v)el.classList.add('conn');} });
 }
+async function testRapidKey() {
+  const key = document.getElementById('rap_key')?.value?.trim();
+  const result = document.getElementById('testResult');
+  const btn = document.getElementById('testBtn');
+  if (!key) { result.textContent = '⚠️ Paste a key first'; result.style.color='var(--red)'; return; }
+  btn.textContent = '⏳ Testing…'; btn.disabled = true;
+  result.textContent = ''; result.style.color = '';
+  try {
+    const res = await fetch(
+      'https://real-time-product-search.p.rapidapi.com/search?q=nike+shirt&country=us&language=en&limit=1',
+      { headers:{'X-RapidAPI-Key':key,'X-RapidAPI-Host':'real-time-product-search.p.rapidapi.com'} }
+    );
+    if (res.ok) {
+      const d = await res.json();
+      const count = d.data?.length || 0;
+      result.textContent = count > 0 ? `✅ Connected! Key works perfectly.` : `⚠️ Key accepted but no results returned.`;
+      result.style.color = count > 0 ? 'var(--green)' : 'var(--accent)';
+      document.getElementById('rap_key').classList.add('conn');
+    } else if (res.status === 401 || res.status === 403) {
+      result.textContent = '❌ Invalid key — check you copied the full X-RapidAPI-Key value.';
+      result.style.color = 'var(--red)';
+    } else if (res.status === 429) {
+      result.textContent = '⚠️ Rate limit hit — but key is valid! Save and use it.';
+      result.style.color = 'var(--accent)';
+      document.getElementById('rap_key').classList.add('conn');
+    } else {
+      result.textContent = `❌ Error ${res.status} — try again.`;
+      result.style.color = 'var(--red)';
+    }
+  } catch(e) {
+    result.textContent = '❌ Network error — check your connection.';
+    result.style.color = 'var(--red)';
+  }
+  btn.textContent = '🔌 Test Key'; btn.disabled = false;
+}
+function clearTestResult() {
+  const r = document.getElementById('testResult');
+  if (r) { r.textContent = ''; }
+  document.getElementById('rap_key')?.classList.remove('conn');
+}
+
 function saveKeys() {
-  const map = {cj_key:'cj',cj_wid:'cj_wid',awin_key:'awin',awin_pub:'awin_pub',amz_acc:'amz',amz_sec:'amz_sec',amz_aid:'amz_aid',rap_key:'rap'};
-  Object.entries(map).forEach(([id,lk])=>{ const v=document.getElementById(id)?.value?.trim()||''; if(v) localStorage.setItem(LS[lk],v); });
-  document.getElementById('smsg').style.display='flex';
-  setTimeout(()=>{ document.getElementById('smsg').style.display='none'; closeSettings(); renderNBar(); loadData(); toast('✅ API keys saved!'); },900);
+  // Map: HTML input id → LS key name
+  const map = {
+    cj_key:'cj', cj_wid:'cj_wid',
+    awin_key:'awin', awin_pub:'awin_pub',
+    amz_acc:'amz', amz_sec:'amz_sec', amz_aid:'amz_aid',
+    rap_key:'rap'   // rap_key input → trendr_rap_key in localStorage
+  };
+  let saved = 0;
+  Object.entries(map).forEach(([inputId, lsKey]) => {
+    const el = document.getElementById(inputId);
+    const v = el?.value?.trim() || '';
+    if (v) {
+      localStorage.setItem(LS[lsKey], v);
+      saved++;
+    }
+  });
+  const msg = document.getElementById('smsg');
+  msg.style.display = 'flex';
+  setTimeout(() => {
+    msg.style.display = 'none';
+    closeSettings();
+    renderNBar();
+    loadData(); // immediately fetch with the new key
+    toast(`✅ ${saved} key${saved!==1?'s':''} saved — loading live data…`);
+  }, 700);
 }
 function openSettings(){ renderModalContent(); document.getElementById('overlay').classList.add('open'); }
 function closeSettings(){ document.getElementById('overlay').classList.remove('open'); }
@@ -787,25 +868,59 @@ async function fetchRapid(key) {
     `https://real-time-product-search.p.rapidapi.com/search?q=${encodeURIComponent(QUERIES[cat])}&country=us&language=en&limit=20`,
     { headers:{'X-RapidAPI-Key':key,'X-RapidAPI-Host':'real-time-product-search.p.rapidapi.com'} }
   );
-  if (!res.ok) throw new Error(res.status);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const data = await res.json();
   const raw = data.data||[];
-  const mapped = raw.map((p,i)=>({
-    rank:i+1, brand:exBrand(p.product_title),
-    name:(p.product_title||'').slice(0,65),
-    price:parseFloat((p.offer?.price||'0').replace(/[^0-9.]/g,''))||0,
-    color:exColor(p.product_title), size:'',
-    sales:rankSc(p), trend:['up','same','down'][i%3],
-    img:p.product_photos?.[0]||I.as,
-    url:p.offer?.store_link||p.product_page_url||'#', src:'rapidapi'
-  }));
+  if (!raw.length) throw new Error('Empty response');
+
+  const mapped = raw.map((p,i)=>{
+    // ── Photo: prefer HTTPS, fallback chain
+    const photos = p.product_photos||[];
+    const img = photos.find(u=>u&&u.startsWith('https')) || photos[0] || I.as;
+
+    // ── Link: try multiple fields, ensure absolute URL
+    const rawUrl = p.offer?.store_link || p.offer?.offer_page_url || p.product_page_url || '';
+    const url = rawUrl.startsWith('http') ? rawUrl : (rawUrl ? 'https://'+rawUrl : '#');
+
+    // ── Price: strip currency symbols
+    const priceRaw = p.offer?.price || p.typical_price_range?.[0] || '0';
+    const price = parseFloat(priceRaw.toString().replace(/[^0-9.]/g,'')) || 0;
+
+    // ── Ranking score: reviews×rating + bestseller + recency boost
+    const score = rankSc(p, i);
+
+    return {
+      rank: i+1,
+      brand: exBrand(p.product_title),
+      name: (p.product_title||'Unknown Product').replace(/[<>]/g,'').slice(0,65),
+      price,
+      color: exColor(p.product_title),
+      size: '',
+      sales: score,
+      trend: score > 5000 ? 'up' : score > 1000 ? 'same' : 'down',
+      img,
+      url,
+      src: 'rapidapi'
+    };
+  });
+
+  // Sort by score descending, reassign ranks
   mapped.sort((a,b)=>b.sales-a.sales).forEach((p,i)=>p.rank=i+1);
   allProds = mapped;
   const ts = new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
   document.getElementById('liveText').textContent = `Live · ${ts}`;
+  toast(`✅ Loaded ${mapped.length} live products`);
 }
 
-function rankSc(p){ return Math.round((parseInt(p.reviews?.total_reviews)||0)*(parseFloat(p.product_rating)||0)+(p.is_best_seller?1000:0)); }
+function rankSc(p, fallbackIdx=0){
+  const reviews = parseInt(p.reviews?.total_reviews) || 0;
+  const rating  = parseFloat(p.product_rating) || 0;
+  const bestSeller = p.is_best_seller ? 2000 : 0;
+  const sponsored  = p.is_sponsored   ? -500  : 0; // demote sponsored
+  // If no reviews yet, use position as tiebreaker so products still get ranked
+  const base = reviews > 0 ? (reviews * rating) : (100 - fallbackIdx * 5);
+  return Math.round(base + bestSeller + sponsored);
+}
 function exBrand(t=''){ return BRANDS_DB.find(b=>t.toLowerCase().includes(b.toLowerCase()))||'Brand'; }
 function exColor(t=''){ return ['Black','White','Grey','Blue','Pink','Green','Red','Purple','Brown','Beige','Orange','Navy'].find(c=>t.toLowerCase().includes(c.toLowerCase()))||''; }
 
