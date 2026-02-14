@@ -6,7 +6,7 @@
 <title>Trendr Shop — Daily Sales Rankings</title>
 <meta name="description" content="Daily rankings of the best-selling fashion and athletic apparel across Nike, Adidas, Lululemon, ASOS and 3,000+ brands. Updated daily."/>
 <meta name="theme-color" content="#c8a96e"/>
-<!-- Open Graph (looks good when shared on iMessage, Twitter, etc.) -->
+<!-- Open Graph -->
 <meta property="og:title" content="Trendr Shop — Today's Best Sellers"/>
 <meta property="og:description" content="Daily sales rankings across Nike, Adidas, Lululemon and 3,000+ brands. Filter by color, size, price and more."/>
 <meta property="og:url" content="https://trendrshop.me"/>
@@ -50,9 +50,11 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:0
 .ld{color:var(--accent)}
 .ls{font-size:.6rem;font-weight:400;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-left:2px}
 .hright{display:flex;align-items:center;gap:.6rem}
-.lpill{display:flex;align-items:center;gap:5px;font-size:.72rem;color:var(--muted);background:var(--bg2);border:1px solid var(--border);padding:3px 10px;border-radius:20px;transition:var(--transition)}
+.lpill{display:flex;align-items:center;gap:5px;font-size:.72rem;color:var(--muted);background:var(--bg2);border:1px solid var(--border);padding:3px 10px;border-radius:20px;transition:var(--transition);cursor:pointer}
+.lpill:hover{border-color:var(--accent)}
 .ldot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.countdown{font-size:.68rem;color:var(--accent);font-weight:600;margin-left:2px}
 /* Theme toggle */
 .theme-btn{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:var(--bg2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.95rem;transition:var(--transition);flex-shrink:0}
 .theme-btn:hover{border-color:var(--accent);background:var(--al)}
@@ -108,7 +110,7 @@ select:focus,input[type=text]:focus{border-color:var(--accent)}
 .card:hover{transform:translateY(-4px);box-shadow:var(--sh2)}
 @keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .ci{position:relative;aspect-ratio:1;overflow:hidden;background:var(--bg2)}
-.ci img{width:100%;height:100%;object-fit:contain;background:var(--bg2);padding:8px;transition:opacity .3s,transform .35s;display:block}
+.ci img{width:100%;height:100%;object-fit:cover;object-position:center 30%;background:var(--bg2);transition:opacity .3s,transform .35s;display:block}
 /* Image fade-in on load */
 .ci img{opacity:0;transition:opacity .3s,transform .35s}
 .ci img.loaded{opacity:1}
@@ -160,7 +162,6 @@ select:focus,input[type=text]:focus{border-color:var(--accent)}
 .gov.open{opacity:1;pointer-events:all}
 .gmodal{background:var(--surface);border-radius:18px;max-width:900px;width:100%;max-height:92vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 32px 100px rgba(0,0,0,.4);transform:scale(.97);transition:transform .2s,var(--transition)}
 .gov.open .gmodal{transform:scale(1)}
-/* Gallery top: image viewer + thumbnails */
 .g-viewer{position:relative;background:#000;flex-shrink:0}
 .g-main-img{width:100%;height:360px;object-fit:contain;display:block;transition:opacity .2s}
 .g-main-img.fading{opacity:0}
@@ -173,7 +174,6 @@ select:focus,input[type=text]:focus{border-color:var(--accent)}
 .g-thumb{width:54px;height:54px;object-fit:cover;border-radius:7px;cursor:pointer;opacity:.55;border:2px solid transparent;transition:.15s;flex-shrink:0}
 .g-thumb.active{opacity:1;border-color:var(--accent)}
 .g-thumb:hover{opacity:.85}
-/* Gallery bottom: product info */
 .g-info{padding:1rem 1.25rem;overflow-y:auto;flex:1}
 .g-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.5rem}
 .g-brand{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--accent)}
@@ -194,9 +194,7 @@ select:focus,input[type=text]:focus{border-color:var(--accent)}
   .g-name{font-size:.95rem}
   .g-price{font-size:1.2rem}
 }
-/* ── DIVIDER ── */
 footer{border-top:1px solid var(--border);padding:1.4rem 2rem;text-align:center;font-size:.73rem;color:var(--muted);margin-top:3rem;transition:var(--transition)}
-/* ── TABLET ── */
 @media(max-width:900px){
   main{padding:1.25rem}
   .hstats{gap:1rem}.stat .sn{font-size:1.2rem}
@@ -204,13 +202,13 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;text-align:center;
   .controls{flex-wrap:wrap;gap:.45rem}.sp{display:none}
   .sw input{width:155px}
 }
-/* ── MOBILE ── */
 @media(max-width:600px){
   header{padding:0 .85rem}
   .hi{height:54px;gap:.5rem}
   .logo{font-size:1.15rem}
   .ls{display:none}
-  .lpill{display:none}
+  .lpill{font-size:.68rem;padding:3px 8px}
+  .countdown{font-size:.64rem}
   main{padding:.85rem}
   .hero{margin-bottom:1rem;gap:.45rem}
   .ht h1{font-size:1.4rem}
@@ -257,21 +255,21 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;text-align:center;
 </style>
 </head>
 <body>
-<!-- HEADER -->
 <header>
   <div class="hi">
     <div class="logo">Trendr<span class="ld">.</span><span class="ls">Daily Rankings</span></div>
     <div class="hright">
-      <div class="lpill"><span class="ldot"></span><span id="liveText">Loading...</span></div>
+      <div class="lpill" onclick="checkForUpdate()" title="Click to check for updates">
+        <span class="ldot"></span>
+        <span id="liveText">Loading...</span>
+        <span class="countdown" id="countdown"></span>
+      </div>
       <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle dark mode">🌙</button>
     </div>
   </div>
 </header>
-<!-- BACK TO TOP -->
 <button class="btt" id="bttBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
-<!-- TOAST CONTAINER -->
 <div class="toast-wrap" id="toastWrap"></div>
-<!-- GALLERY MODAL -->
 <div class="gov" id="gov" onclick="closeGalleryOnBg(event)">
   <div class="gmodal">
     <div class="g-viewer">
@@ -299,7 +297,6 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;text-align:center;
     </div>
   </div>
 </div>
-<!-- MAIN -->
 <main>
   <div class="hero">
     <div class="ht">
@@ -353,10 +350,6 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;text-align:center;
         <option value="96">96</option>
       </select>
     </div>
-    <button class="rbtn" id="rbtn" onclick="loadData()">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-      Refresh
-    </button>
   </div>
   <div class="gh">
     <div class="gh-left">
@@ -368,71 +361,21 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;text-align:center;
   <div class="pagination" id="pagination"></div>
   <p class="pg-info" id="pgInfo"></p>
 </main>
-<footer>© 2025 <a href="https://trendrshop.me" style="color:var(--accent);text-decoration:none">trendrshop.me</a> &nbsp;·&nbsp; Daily rankings across 30,000+ brands &nbsp;·&nbsp; Rankings refresh daily</footer>
+<footer>© 2025 <a href="https://trendrshop.me" style="color:var(--accent);text-decoration:none">trendrshop.me</a> &nbsp;·&nbsp; Daily rankings across 30,000+ brands &nbsp;·&nbsp; Updates daily at noon EST</footer>
 <script>
 'use strict';
-// ══════════════════════════════════
-// 🔧 CONFIGURATION - YOUR CLOUDFLARE WORKER URL
-// ══════════════════════════════════
 const WORKER_URL = 'https://apiproxy.trendrconnect.workers.dev';
+const UPDATE_HOUR = 12; // Noon (24-hour format, 0-23)
+const UPDATE_TIMEZONE = 'America/New_York'; // EST/EDT
 
-// ══════════════════════════════════
-// STATE
-// ══════════════════════════════════
 let cat = 'womens';
 let allProds = [];
 let filtered = [];
 let currentPage = 1;
 let perPage = 12;
+let countdownInterval = null;
 
-// ══════════════════════════════════
-// THEME
-// ══════════════════════════════════
-function initTheme() {
-  const saved = localStorage.getItem('trendr_theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const theme = saved || (prefersDark ? 'dark' : 'light');
-  applyTheme(theme);
-}
-function applyTheme(theme) {
-  document.documentElement.setAttribute('data-theme', theme);
-  document.getElementById('themeBtn').textContent = theme === 'dark' ? '☀️' : '🌙';
-  localStorage.setItem('trendr_theme', theme);
-}
-function toggleTheme() {
-  const cur = document.documentElement.getAttribute('data-theme');
-  applyTheme(cur === 'dark' ? 'light' : 'dark');
-  toast(cur === 'dark' ? '☀️ Light mode' : '🌙 Dark mode');
-}
-
-// ══════════════════════════════════
-// TOAST
-// ══════════════════════════════════
-function toast(msg, dur=2200) {
-  const wrap = document.getElementById('toastWrap');
-  const el = document.createElement('div');
-  el.className = 'toast';
-  el.textContent = msg;
-  wrap.appendChild(el);
-  requestAnimationFrame(() => { el.classList.add('show'); });
-  setTimeout(() => {
-    el.classList.remove('show');
-    setTimeout(() => el.remove(), 300);
-  }, dur);
-}
-
-// ══════════════════════════════════
-// BACK TO TOP
-// ══════════════════════════════════
-window.addEventListener('scroll', () => {
-  const btn = document.getElementById('bttBtn');
-  if (window.scrollY > 400) btn.classList.add('visible');
-  else btn.classList.remove('visible');
-}, { passive: true });
-
-// ══════════════════════════════════
-// DEMO DATA — 4 categories, 12 each
-// ══════════════════════════════════
+// DEMO DATA (fallback)
 const I = {
   ll:'https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=500&q=75',
   nw:'https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=500&q=75',
@@ -453,7 +396,7 @@ const I = {
   hm:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=75',
   mg:'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=75',
 };
-const P = (r,br,n,pr,co,sz,sc,tr,im,url,src='demo') => ({rank:r,brand:br,name:n,price:pr,color:co,size:sz,sales:sc,trend:tr,img:I[im]||I.as,url,src});
+const P = (r,br,n,pr,co,sz,sc,tr,im,url,src='demo') => ({rank:r,brand:br,name:n,price:pr,color:co,size:sz,sales:sc,trend:tr,img:I[im]||I.as,url,src,photos:[I[im]||I.as]});
 const DEMO = {
   womens:[
     P(1,'Lululemon','Align High-Rise Pant 28"',128,'Black','M',18420,'up','ll','https://lululemon.com'),
@@ -513,9 +456,42 @@ const DEMO = {
   ]
 };
 
-// ══════════════════════════════════
-// CATEGORY
-// ══════════════════════════════════
+function initTheme() {
+  const saved = localStorage.getItem('trendr_theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const theme = saved || (prefersDark ? 'dark' : 'light');
+  applyTheme(theme);
+}
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  document.getElementById('themeBtn').textContent = theme === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('trendr_theme', theme);
+}
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme');
+  applyTheme(cur === 'dark' ? 'light' : 'dark');
+  toast(cur === 'dark' ? '☀️ Light mode' : '🌙 Dark mode');
+}
+
+function toast(msg, dur=2200) {
+  const wrap = document.getElementById('toastWrap');
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.textContent = msg;
+  wrap.appendChild(el);
+  requestAnimationFrame(() => { el.classList.add('show'); });
+  setTimeout(() => {
+    el.classList.remove('show');
+    setTimeout(() => el.remove(), 300);
+  }, dur);
+}
+
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('bttBtn');
+  if (window.scrollY > 400) btn.classList.add('visible');
+  else btn.classList.remove('visible');
+}, { passive: true });
+
 const CLABELS = {womens:"Women's",mens:"Men's",sneakers:"Sneakers",accessories:"Accessories"};
 function setCat(c, btn) {
   cat = c; currentPage = 1;
@@ -532,9 +508,6 @@ function populateBrands(prods) {
   sel.innerHTML = '<option value="">All Brands</option>'+brands.map(b=>`<option${b===cur?' selected':''}>${b}</option>`).join('');
 }
 
-// ══════════════════════════════════
-// FILTERS
-// ══════════════════════════════════
 function onFilterChange() { currentPage = 1; applyFilters(); }
 function onPerPageChange() { perPage = parseInt(document.getElementById('perPage').value); currentPage = 1; renderPage(); }
 function applyFilters() {
@@ -563,9 +536,6 @@ function applyFilters() {
   renderPage();
 }
 
-// ══════════════════════════════════
-// PAGINATION
-// ══════════════════════════════════
 function renderPage() {
   const total = filtered.length;
   const totalPages = Math.max(1, Math.ceil(total / perPage));
@@ -615,23 +585,129 @@ function getPageNumbers(cur, total) {
 }
 
 // ══════════════════════════════════
-// LOAD DATA
+// COUNTDOWN & AUTO-UPDATE SYSTEM
 // ══════════════════════════════════
-async function loadData() {
-  const btn = document.getElementById('rbtn');
-  btn.classList.add('loading');
+function getNextUpdateTime() {
+  const now = new Date();
+  const updateTime = new Date(now.toLocaleString('en-US', { timeZone: UPDATE_TIMEZONE }));
+  updateTime.setHours(UPDATE_HOUR, 0, 0, 0);
+  
+  // If today's update time has passed, schedule for tomorrow
+  if (new Date(now.toLocaleString('en-US', { timeZone: UPDATE_TIMEZONE })) >= updateTime) {
+    updateTime.setDate(updateTime.getDate() + 1);
+  }
+  
+  // Convert back to local time
+  return new Date(updateTime.toLocaleString('en-US', { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone }));
+}
+
+function formatCountdown(ms) {
+  const hours = Math.floor(ms / 3600000);
+  const minutes = Math.floor((ms % 3600000) / 60000);
+  if (hours > 0) return `${hours}h ${minutes}m`;
+  if (minutes > 0) return `${minutes}m`;
+  return '<1m';
+}
+
+function updateCountdown() {
+  const nextUpdate = getNextUpdateTime();
+  const now = Date.now();
+  const remaining = nextUpdate - now;
+  
+  const countdownEl = document.getElementById('countdown');
+  if (remaining > 0) {
+    countdownEl.textContent = `· ${formatCountdown(remaining)}`;
+  } else {
+    countdownEl.textContent = '· updating...';
+    // Trigger auto-update if past update time
+    checkForUpdate();
+  }
+}
+
+function startCountdown() {
+  updateCountdown();
+  if (countdownInterval) clearInterval(countdownInterval);
+  countdownInterval = setInterval(updateCountdown, 60000); // Update every minute
+}
+
+// CACHING SYSTEM
+function getCacheKey() { return `trendr_cache_${cat}_v2`; }
+function getLastUpdateKey() { return 'trendr_last_update'; }
+
+function getCachedData() {
+  try {
+    const cached = localStorage.getItem(getCacheKey());
+    if (!cached) return null;
+    const { data, timestamp } = JSON.parse(cached);
+    console.log(`✅ Loaded from cache (${new Date(timestamp).toLocaleString()})`);
+    return data;
+  } catch(e) { return null; }
+}
+
+function setCachedData(data) {
+  try {
+    const timestamp = Date.now();
+    localStorage.setItem(getCacheKey(), JSON.stringify({ data, timestamp }));
+    localStorage.setItem(getLastUpdateKey(), timestamp.toString());
+  } catch(e) { console.warn('Cache save failed:', e); }
+}
+
+function shouldUpdate() {
+  const lastUpdate = localStorage.getItem(getLastUpdateKey());
+  if (!lastUpdate) return true;
+  
+  const lastUpdateDate = new Date(parseInt(lastUpdate));
+  const lastUpdateEST = new Date(lastUpdateDate.toLocaleString('en-US', { timeZone: UPDATE_TIMEZONE }));
+  const nowEST = new Date(new Date().toLocaleString('en-US', { timeZone: UPDATE_TIMEZONE }));
+  
+  // Check if last update was before today's update time
+  const todayUpdate = new Date(nowEST);
+  todayUpdate.setHours(UPDATE_HOUR, 0, 0, 0);
+  
+  return lastUpdateEST < todayUpdate && nowEST >= todayUpdate;
+}
+
+async function checkForUpdate() {
+  if (shouldUpdate()) {
+    console.log('🔄 Auto-updating data...');
+    toast('🔄 Fetching latest rankings...', 3000);
+    await loadData(true);
+  } else {
+    console.log('✅ Cache is up to date');
+    toast('✅ Already up to date');
+  }
+}
+
+async function loadData(forceRefresh = false) {
   showSkel();
   
   let loaded = false;
   
-  // Try to fetch from Cloudflare Worker
-  try { 
-    await fetchRapid(); 
-    loaded = true; 
+  // Try cache first unless forced refresh or update needed
+  if (!forceRefresh && !shouldUpdate()) {
+    const cached = getCachedData();
+    if (cached) {
+      allProds = cached;
+      loaded = true;
+      const lastUpdate = parseInt(localStorage.getItem(getLastUpdateKey()));
+      const updateDate = new Date(lastUpdate);
+      document.getElementById('liveText').textContent = `Updated ${updateDate.toLocaleDateString('en-US', {month:'short', day:'numeric'})}`;
+    }
   }
-  catch(e) {
-    console.warn('API error:', e.message);
-    toast(`⚠️ ${e.message || 'API error'} — showing demo data`, 4000);
+  
+  // If no cache or update needed, fetch from API
+  if (!loaded) {
+    try { 
+      await fetchRapid(); 
+      setCachedData(allProds);
+      loaded = true;
+      const updateDate = new Date();
+      document.getElementById('liveText').textContent = `Updated ${updateDate.toLocaleDateString('en-US', {month:'short', day:'numeric'})}`;
+    }
+    catch(e) {
+      console.warn('API error:', e.message);
+      toast(`⚠️ ${e.message || 'API error'} — showing demo data`, 4000);
+    }
   }
   
   if (!loaded) {
@@ -644,56 +720,23 @@ async function loadData() {
   document.getElementById('sProds').textContent = allProds.length;
   document.getElementById('sBrands').textContent = [...new Set(allProds.map(p=>p.brand))].length;
   applyFilters();
-  btn.classList.remove('loading');
+  startCountdown();
 }
 
-// ══════════════════════════════════
-// API FETCH VIA CLOUDFLARE WORKER
-// ══════════════════════════════════
 const QUERIES = {
-  womens:[
-    'Nike womens leggings tights sports bra',
-    'Adidas womens hoodie jacket tracksuit',
-    'Zara H&M ASOS womens dress top',
-    'Lululemon Free People Revolve womens clothing',
-    'Under Armour Puma womens athletic wear',
-  ],
-  mens:[
-    'Nike mens hoodie joggers tracksuit',
-    'Adidas mens jacket shorts t-shirt',
-    'Zara H&M mens shirt chino trousers',
-    'Lululemon Champion mens athletic clothing',
-    'The North Face Columbia mens jacket',
-  ],
-  sneakers:[
-    'Nike Air Force Jordan sneakers shoes',
-    'Adidas Stan Smith Ultraboost sneakers',
-    'New Balance Converse Vans sneakers',
-    'Asics Brooks Saucony running shoes',
-    'Puma Reebok Fila sneakers',
-  ],
-  accessories:[
-    'Nike Adidas sports bag backpack',
-    'Lululemon belt bag crossbody purse',
-    'sunglasses hat cap beanie fashion',
-    'Zara Mango ASOS handbag tote',
-    'North Face Columbia travel bag',
-  ],
+  womens:['Nike womens leggings tights sports bra','Adidas womens hoodie jacket tracksuit','Zara H&M ASOS womens dress top'],
+  mens:['Nike mens hoodie joggers tracksuit','Adidas mens jacket shorts t-shirt','Zara H&M mens shirt chino trousers'],
+  sneakers:['Nike Air Force Jordan sneakers shoes','Adidas Stan Smith Ultraboost sneakers','New Balance Converse Vans sneakers'],
+  accessories:['Nike Adidas sports bag backpack','Lululemon belt bag crossbody purse','sunglasses hat cap beanie fashion'],
 };
-
 const BRANDS_DB = ['Nike','Adidas','Lululemon','Under Armour','Puma','New Balance','Reebok','Converse','Vans','Jordan','Asics','Fila','Saucony','Brooks','Champion','H&M','Zara','ASOS','Revolve','Free People','Anthropologie','Urban Outfitters','Mango','Ted Baker','Nordstrom','J.Crew','Gap','Old Navy','Banana Republic','Express','Forever 21','Patagonia','The North Face','Columbia','Uniqlo','Carhartt','Gymshark','Sweaty Betty','Arc\'teryx','Ralph Lauren','Tommy Hilfiger','Calvin Klein','Levis'];
 
 async function fetchRapid() {
   const queries = QUERIES[cat].slice(0, 3);
-  
   const results = await Promise.allSettled(queries.map(q =>
     fetch(`${WORKER_URL}?q=${encodeURIComponent(q)}&category=${cat}`)
-      .then(r => { 
-        if(!r.ok) throw new Error(`HTTP ${r.status}`); 
-        return r.json(); 
-      })
+      .then(r => { if(!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
   ));
-
   const seen = new Set();
   const raw = [];
   results.forEach(r => {
@@ -705,9 +748,7 @@ async function fetchRapid() {
       });
     }
   });
-
-  if (!raw.length) throw new Error('No products returned — check your worker configuration');
-
+  if (!raw.length) throw new Error('No products returned');
   const mapped = raw.map((p,i)=>{
     const photos = (p.product_photos||[]).filter(u=>u&&u.length>10);
     const img = photos[0] || I.as;
@@ -737,7 +778,6 @@ async function fetchRapid() {
       src:'rapidapi'
     };
   });
-
   mapped.sort((a,b)=>b.sales-a.sales);
   const deduped = [];
   const namesSeen = new Set();
@@ -747,11 +787,8 @@ async function fetchRapid() {
   });
   deduped.forEach((p,i)=>p.rank=i+1);
   allProds = deduped;
-  const ts = new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-  document.getElementById('liveText').textContent = `Live · ${ts}`;
   toast(`✅ Loaded ${deduped.length} products from ${[...new Set(deduped.map(p=>p.brand))].length} brands`);
 }
-
 function rankSc(p, fallbackIdx=0){
   const reviews = parseInt(p.reviews?.total_reviews) || 0;
   const rating  = parseFloat(p.product_rating) || 0;
@@ -769,9 +806,6 @@ function exSize(t=''){
   return shoe ? shoe[0].trim() : '';
 }
 
-// ══════════════════════════════════
-// RENDER CARDS
-// ══════════════════════════════════
 function renderProds(prods) {
   const grid = document.getElementById('grid');
   if (!prods.length) {
@@ -837,9 +871,6 @@ function renderStars(rating) {
   return `<span class="stars">${'★'.repeat(full)}${'½'.repeat(half)}${'☆'.repeat(empty)}</span><span class="rating-num">${rating.toFixed(1)}</span>`;
 }
 
-// ══════════════════════════════════
-// SKELETON
-// ══════════════════════════════════
 function showSkel() {
   document.getElementById('grid').innerHTML = Array(Math.min(perPage, 12)).fill(`
     <div class="csk"><div class="sk skim"></div>
@@ -848,18 +879,12 @@ function showSkel() {
   document.getElementById('pgInfo').textContent = '';
 }
 
-// ══════════════════════════════════
-// HELPERS
-// ══════════════════════════════════
 function rc(r){ return r===1?'r1':r===2?'r2':r===3?'r3':'rn'; }
 function tc(t){ return t==='up'?'tu':t==='down'?'td':'ts2'; }
 function ti(t){ return t==='up'?'↑':t==='down'?'↓':'—'; }
 function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
 function sl(s){ return {rapidapi:'Live',demo:'Demo'}[s]||'Demo'; }
 
-// ══════════════════════════════════
-// GALLERY MODAL
-// ══════════════════════════════════
 let gProduct = null;
 let gPhotoIdx = 0;
 function openGallery(idx) {
@@ -934,9 +959,6 @@ function renderStarsStr(r) {
   return '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(5 - full - (half?1:0));
 }
 
-// ══════════════════════════════════
-// INIT
-// ══════════════════════════════════
 initTheme();
 loadData();
 </script>
