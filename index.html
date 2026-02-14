@@ -6,6 +6,8 @@
 <title>Trendr Shop — Daily Sales Rankings</title>
 <meta name="description" content="Daily rankings of the best-selling fashion and athletic apparel across Nike, Adidas, Lululemon, ASOS and 3,000+ brands. Updated daily."/>
 <meta name="theme-color" content="#c8a96e"/>
+<!-- Favicon -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🔥</text></svg>"/>
 <!-- Open Graph -->
 <meta property="og:title" content="Trendr Shop — Today's Best Sellers"/>
 <meta property="og:description" content="Daily sales rankings across Nike, Adidas, Lululemon and 3,000+ brands. Filter by color, size, price and more."/>
@@ -17,7 +19,7 @@
 <meta name="twitter:description" content="Best-selling fashion ranked daily across 3,000+ brands."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 @media(max-width:600px){input,select,textarea{font-size:16px!important}}
@@ -50,14 +52,21 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:0
 .ld{color:var(--accent)}
 .ls{font-size:.6rem;font-weight:400;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-left:2px}
 .hright{display:flex;align-items:center;gap:.6rem}
-.lpill{display:flex;align-items:center;gap:5px;font-size:.72rem;color:var(--muted);background:var(--bg2);border:1px solid var(--border);padding:3px 10px;border-radius:20px;transition:var(--transition);cursor:pointer}
-.lpill:hover{border-color:var(--accent)}
-.ldot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
-.countdown{font-size:.68rem;color:var(--accent);font-weight:600;margin-left:2px}
 /* Theme toggle */
 .theme-btn{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:var(--bg2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.95rem;transition:var(--transition);flex-shrink:0}
 .theme-btn:hover{border-color:var(--accent);background:var(--al)}
+/* ── COUNTDOWN BANNER (Desktop) ── */
+.countdown-banner{background:linear-gradient(135deg,var(--accent) 0%,var(--ad) 100%);padding:1rem 2rem;text-align:center;color:#fff;border-bottom:1px solid var(--border)}
+.countdown-content{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap}
+.countdown-label{font-size:.85rem;font-weight:500;opacity:.9;letter-spacing:.05em;text-transform:uppercase}
+.countdown-timer{display:flex;gap:.75rem;align-items:center}
+.time-unit{display:flex;flex-direction:column;align-items:center;min-width:60px}
+.time-value{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;line-height:1;text-shadow:0 2px 8px rgba(0,0,0,.2)}
+.time-label{font-size:.65rem;opacity:.8;margin-top:.25rem;letter-spacing:.08em;text-transform:uppercase}
+.time-sep{font-size:1.5rem;font-weight:700;opacity:.6;margin:0 -.25rem}
+.status-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);padding:4px 12px;border-radius:20px;font-size:.72rem;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2)}
+.status-dot{width:6px;height:6px;background:#fff;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 /* ── TOAST ── */
 .toast-wrap{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;display:flex;flex-direction:column;gap:.5rem;pointer-events:none}
 .toast{background:var(--text);color:var(--bg);padding:.65rem 1rem;border-radius:10px;font-size:.8rem;font-weight:500;box-shadow:var(--sh2);opacity:0;transform:translateY(8px);transition:opacity .25s,transform .25s;pointer-events:none;max-width:260px}
@@ -202,13 +211,22 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;text-align:center;
   .controls{flex-wrap:wrap;gap:.45rem}.sp{display:none}
   .sw input{width:155px}
 }
+/* ── MOBILE ── */
 @media(max-width:600px){
   header{padding:0 .85rem}
   .hi{height:54px;gap:.5rem}
   .logo{font-size:1.15rem}
   .ls{display:none}
-  .lpill{font-size:.68rem;padding:3px 8px}
-  .countdown{font-size:.64rem}
+  /* Mobile countdown - compact timer */
+  .countdown-banner{padding:.75rem 1rem}
+  .countdown-content{gap:.75rem;flex-direction:column}
+  .countdown-label{font-size:.7rem;margin-bottom:.15rem}
+  .countdown-timer{gap:.4rem;font-size:.85rem}
+  .time-unit{min-width:45px}
+  .time-value{font-size:1.4rem}
+  .time-label{font-size:.58rem;margin-top:.15rem}
+  .time-sep{font-size:1.1rem;margin:0 -.15rem}
+  .status-pill{font-size:.65rem;padding:3px 9px}
   main{padding:.85rem}
   .hero{margin-bottom:1rem;gap:.45rem}
   .ht h1{font-size:1.4rem}
@@ -259,15 +277,38 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;text-align:center;
   <div class="hi">
     <div class="logo">Trendr<span class="ld">.</span><span class="ls">Daily Rankings</span></div>
     <div class="hright">
-      <div class="lpill" onclick="checkForUpdate()" title="Click to check for updates">
-        <span class="ldot"></span>
-        <span id="liveText">Loading...</span>
-        <span class="countdown" id="countdown"></span>
-      </div>
       <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle dark mode">🌙</button>
     </div>
   </div>
 </header>
+
+<!-- COUNTDOWN BANNER -->
+<div class="countdown-banner">
+  <div class="countdown-content">
+    <span class="countdown-label">Next Update In</span>
+    <div class="countdown-timer">
+      <div class="time-unit">
+        <div class="time-value" id="hours">00</div>
+        <div class="time-label">Hours</div>
+      </div>
+      <span class="time-sep">:</span>
+      <div class="time-unit">
+        <div class="time-value" id="minutes">00</div>
+        <div class="time-label">Minutes</div>
+      </div>
+      <span class="time-sep">:</span>
+      <div class="time-unit">
+        <div class="time-value" id="seconds">00</div>
+        <div class="time-label">Seconds</div>
+      </div>
+    </div>
+    <div class="status-pill">
+      <span class="status-dot"></span>
+      <span id="statusText">Updated Today</span>
+    </div>
+  </div>
+</div>
+
 <button class="btt" id="bttBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
 <div class="toast-wrap" id="toastWrap"></div>
 <div class="gov" id="gov" onclick="closeGalleryOnBg(event)">
@@ -592,34 +633,32 @@ function getNextUpdateTime() {
   const updateTime = new Date(now.toLocaleString('en-US', { timeZone: UPDATE_TIMEZONE }));
   updateTime.setHours(UPDATE_HOUR, 0, 0, 0);
   
-  // If today's update time has passed, schedule for tomorrow
   if (new Date(now.toLocaleString('en-US', { timeZone: UPDATE_TIMEZONE })) >= updateTime) {
     updateTime.setDate(updateTime.getDate() + 1);
   }
   
-  // Convert back to local time
   return new Date(updateTime.toLocaleString('en-US', { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone }));
 }
 
-function formatCountdown(ms) {
-  const hours = Math.floor(ms / 3600000);
-  const minutes = Math.floor((ms % 3600000) / 60000);
-  if (hours > 0) return `${hours}h ${minutes}m`;
-  if (minutes > 0) return `${minutes}m`;
-  return '<1m';
-}
+function pad(n) { return n.toString().padStart(2, '0'); }
 
 function updateCountdown() {
   const nextUpdate = getNextUpdateTime();
   const now = Date.now();
   const remaining = nextUpdate - now;
   
-  const countdownEl = document.getElementById('countdown');
   if (remaining > 0) {
-    countdownEl.textContent = `· ${formatCountdown(remaining)}`;
+    const hours = Math.floor(remaining / 3600000);
+    const minutes = Math.floor((remaining % 3600000) / 60000);
+    const seconds = Math.floor((remaining % 60000) / 1000);
+    
+    document.getElementById('hours').textContent = pad(hours);
+    document.getElementById('minutes').textContent = pad(minutes);
+    document.getElementById('seconds').textContent = pad(seconds);
   } else {
-    countdownEl.textContent = '· updating...';
-    // Trigger auto-update if past update time
+    document.getElementById('hours').textContent = '00';
+    document.getElementById('minutes').textContent = '00';
+    document.getElementById('seconds').textContent = '00';
     checkForUpdate();
   }
 }
@@ -627,7 +666,7 @@ function updateCountdown() {
 function startCountdown() {
   updateCountdown();
   if (countdownInterval) clearInterval(countdownInterval);
-  countdownInterval = setInterval(updateCountdown, 60000); // Update every minute
+  countdownInterval = setInterval(updateCountdown, 1000); // Update every second
 }
 
 // CACHING SYSTEM
@@ -660,7 +699,6 @@ function shouldUpdate() {
   const lastUpdateEST = new Date(lastUpdateDate.toLocaleString('en-US', { timeZone: UPDATE_TIMEZONE }));
   const nowEST = new Date(new Date().toLocaleString('en-US', { timeZone: UPDATE_TIMEZONE }));
   
-  // Check if last update was before today's update time
   const todayUpdate = new Date(nowEST);
   todayUpdate.setHours(UPDATE_HOUR, 0, 0, 0);
   
@@ -672,9 +710,6 @@ async function checkForUpdate() {
     console.log('🔄 Auto-updating data...');
     toast('🔄 Fetching latest rankings...', 3000);
     await loadData(true);
-  } else {
-    console.log('✅ Cache is up to date');
-    toast('✅ Already up to date');
   }
 }
 
@@ -683,7 +718,6 @@ async function loadData(forceRefresh = false) {
   
   let loaded = false;
   
-  // Try cache first unless forced refresh or update needed
   if (!forceRefresh && !shouldUpdate()) {
     const cached = getCachedData();
     if (cached) {
@@ -691,18 +725,17 @@ async function loadData(forceRefresh = false) {
       loaded = true;
       const lastUpdate = parseInt(localStorage.getItem(getLastUpdateKey()));
       const updateDate = new Date(lastUpdate);
-      document.getElementById('liveText').textContent = `Updated ${updateDate.toLocaleDateString('en-US', {month:'short', day:'numeric'})}`;
+      document.getElementById('statusText').textContent = `Updated ${updateDate.toLocaleDateString('en-US', {month:'short', day:'numeric'})}`;
     }
   }
   
-  // If no cache or update needed, fetch from API
   if (!loaded) {
     try { 
       await fetchRapid(); 
       setCachedData(allProds);
       loaded = true;
       const updateDate = new Date();
-      document.getElementById('liveText').textContent = `Updated ${updateDate.toLocaleDateString('en-US', {month:'short', day:'numeric'})}`;
+      document.getElementById('statusText').textContent = `Updated ${updateDate.toLocaleDateString('en-US', {month:'short', day:'numeric'})}`;
     }
     catch(e) {
       console.warn('API error:', e.message);
@@ -713,7 +746,7 @@ async function loadData(forceRefresh = false) {
   if (!loaded) {
     await new Promise(r=>setTimeout(r,350));
     allProds = DEMO[cat];
-    document.getElementById('liveText').textContent = 'Demo data';
+    document.getElementById('statusText').textContent = 'Demo Data';
   }
   
   populateBrands(allProds);
