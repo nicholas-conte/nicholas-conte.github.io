@@ -21,7 +21,6 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 @media(max-width:600px){input,select,textarea{font-size:16px!important}}
-
 /* ── THEMES ── */
 :root{
   --bg:#fafaf8;--bg2:#f3f0ea;--surface:#fff;--surface2:#f7f4ee;
@@ -42,10 +41,8 @@
   --sh:0 1px 3px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.2);
   --sh2:0 6px 28px rgba(0,0,0,.4);
 }
-
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:var(--transition)}
-
 /* ── HEADER ── */
 header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 2rem;position:sticky;top:0;z-index:200;transition:var(--transition);backdrop-filter:blur(8px)}
 .hi{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;gap:.75rem}
@@ -56,27 +53,19 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:0
 .lpill{display:flex;align-items:center;gap:5px;font-size:.72rem;color:var(--muted);background:var(--bg2);border:1px solid var(--border);padding:3px 10px;border-radius:20px;transition:var(--transition)}
 .ldot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
-
 /* Theme toggle */
 .theme-btn{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:var(--bg2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.95rem;transition:var(--transition);flex-shrink:0}
 .theme-btn:hover{border-color:var(--accent);background:var(--al)}
-
-.sbtn{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:5px 12px;font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:500;color:var(--text);cursor:pointer;transition:var(--transition);white-space:nowrap}
-.sbtn:hover{background:var(--al);border-color:var(--accent)}
-
 /* ── TOAST ── */
 .toast-wrap{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;display:flex;flex-direction:column;gap:.5rem;pointer-events:none}
 .toast{background:var(--text);color:var(--bg);padding:.65rem 1rem;border-radius:10px;font-size:.8rem;font-weight:500;box-shadow:var(--sh2);opacity:0;transform:translateY(8px);transition:opacity .25s,transform .25s;pointer-events:none;max-width:260px}
 .toast.show{opacity:1;transform:none}
-
 /* ── BACK TO TOP ── */
 .btt{position:fixed;bottom:1.5rem;left:1.5rem;z-index:198;width:38px;height:38px;border-radius:50%;background:var(--accent);border:none;color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(200,169,110,.4);opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .25s,transform .25s}
 .btt.visible{opacity:1;pointer-events:all;transform:none}
 .btt:hover{background:var(--ad)}
-
 /* ── MAIN ── */
 main{max-width:1280px;margin:0 auto;padding:2rem}
-
 /* ── HERO ── */
 .hero{margin-bottom:1.75rem;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem}
 .ht h1{font-family:'Playfair Display',serif;font-size:clamp(1.55rem,3.5vw,2.4rem);font-weight:700;letter-spacing:-.03em;line-height:1.15}
@@ -85,19 +74,6 @@ main{max-width:1280px;margin:0 auto;padding:2rem}
 .hstats{display:flex;gap:1.5rem}
 .stat .sn{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--accent)}
 .stat .sl{font-size:.67rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-
-/* ── NETWORK BAR ── */
-.nbar{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1.4rem}
-.nchip{display:flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;font-size:.72rem;font-weight:500;border:1.5px solid transparent;cursor:pointer;transition:all .15s}
-.nchip.conn{color:#fff}
-.nchip.disc{background:var(--bg2);border-color:var(--border);color:var(--muted)}
-.nchip.disc:hover{border-color:var(--accent);color:var(--accent)}
-.nchip.conn.cj{background:var(--cj)}.nchip.conn.awin{background:var(--aw)}
-.nchip.conn.amazon{background:var(--amz)}.nchip.conn.rapidapi{background:var(--rap)}
-.cdot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.7);flex-shrink:0}
-.disc .cdot{background:var(--border)}
-.bcount{font-size:.63rem;opacity:.8}
-
 /* ── CONTROLS ── */
 .controls{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.3rem;align-items:center}
 .tg{display:flex;background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:3px;gap:2px;transition:var(--transition)}
@@ -113,34 +89,26 @@ select:focus,input[type=text]:focus{border-color:var(--accent)}
 .rbtn:hover{background:var(--al);border-color:var(--accent)}
 .rbtn.loading svg{animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-
 /* ── PER-PAGE ── */
 .ppc{display:flex;align-items:center;gap:.4rem;font-size:.77rem;color:var(--muted)}
 .ppc select{padding:4px 8px;font-size:.73rem}
-
 /* ── SOURCE BADGE ── */
 .sb{display:inline-flex;align-items:center;gap:2px;font-size:.62rem;padding:2px 6px;border-radius:9px;font-weight:600}
-.s-cj{background:rgba(255,107,53,.12);color:var(--cj)}
-.s-awin{background:rgba(0,97,160,.1);color:var(--aw)}
-.s-amazon{background:rgba(255,153,0,.12);color:var(--amz)}
-.s-demo{background:var(--al);color:var(--ad)}
 .s-rapidapi{background:rgba(0,102,204,.1);color:var(--rap)}
-
+.s-demo{background:var(--al);color:var(--ad)}
 /* ── GRID HEADER ── */
 .gh{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;flex-wrap:wrap;gap:.5rem}
 .gh-left{display:flex;align-items:center;gap:.75rem}
 .gh h2{font-family:'Playfair Display',serif;font-size:1rem;font-weight:600}
 .rc{font-size:.75rem;color:var(--muted)}
-
 /* ── GRID ── */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:.95rem;min-height:200px}
-
 /* ── CARD ── */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);transition:transform .2s,box-shadow .2s,var(--transition);animation:fu .3s ease both;will-change:transform}
 .card:hover{transform:translateY(-4px);box-shadow:var(--sh2)}
 @keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .ci{position:relative;aspect-ratio:1;overflow:hidden;background:var(--bg2)}
-.ci img{width:100%;height:100%;object-fit:cover;transition:transform .35s;display:block}
+.ci img{width:100%;height:100%;object-fit:contain;background:var(--bg2);padding:8px;transition:opacity .3s,transform .35s;display:block}
 /* Image fade-in on load */
 .ci img{opacity:0;transition:opacity .3s,transform .35s}
 .ci img.loaded{opacity:1}
@@ -165,7 +133,6 @@ select:focus,input[type=text]:focus{border-color:var(--accent)}
 .score{font-size:.66rem;color:var(--muted)}
 .bbtn{padding:5px 12px;border-radius:7px;border:1.5px solid var(--border2);background:transparent;font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:600;color:var(--text);cursor:pointer;text-decoration:none;transition:all .15s;display:inline-block;white-space:nowrap}
 .bbtn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
-
 /* ── SKELETON ── */
 .sk{background:linear-gradient(90deg,var(--bg2) 25%,var(--surface2) 50%,var(--bg2) 75%);background-size:200% 100%;animation:shim 1.5s infinite;border-radius:6px}
 @keyframes shim{0%{background-position:200% 0}100%{background-position:-200% 0}}
@@ -174,7 +141,6 @@ select:focus,input[type=text]:focus{border-color:var(--accent)}
 .skl{height:10px}.skl.s{width:55%}.skl.m{width:75%}
 .empty{text-align:center;padding:4rem 2rem;color:var(--muted);grid-column:1/-1}
 .ei{font-size:2rem;margin-bottom:.7rem}
-
 /* ── PAGINATION ── */
 .pagination{display:flex;align-items:center;justify-content:center;gap:.4rem;margin-top:2rem;flex-wrap:wrap}
 .pg-btn{min-width:36px;height:36px;padding:0 10px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:500;color:var(--muted);cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
@@ -183,41 +149,53 @@ select:focus,input[type=text]:focus{border-color:var(--accent)}
 .pg-btn:disabled{opacity:.35;cursor:not-allowed}
 .pg-btn.pg-dots{border:none;background:none;cursor:default;color:var(--muted)}
 .pg-info{font-size:.76rem;color:var(--muted);text-align:center;margin-top:.6rem}
-
-/* ── MODAL ── */
-.ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .2s}
-.ov.open{opacity:1;pointer-events:all}
-.modal{background:var(--surface);border-radius:16px;max-width:660px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.2);transform:translateY(20px);transition:transform .2s,var(--transition)}
-.ov.open .modal{transform:none}
-.drag-handle{display:none;justify-content:center;padding:.55rem 0 .1rem}
-.drag-handle div{width:36px;height:4px;background:var(--border2);border-radius:4px}
-.mh{padding:1.4rem 1.4rem .75rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between}
-.mh h2{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700}
-.mh p{font-size:.77rem;color:var(--muted);margin-top:.2rem}
-.xbtn{background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--muted);padding:2px;line-height:1}
-.mb{padding:1.2rem 1.4rem}
-.ns{margin-bottom:1.4rem}
-.ns h3{font-size:.79rem;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:.5rem;display:flex;align-items:center;gap:.45rem;flex-wrap:wrap}
-.nl{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:10px;font-size:.68rem;font-weight:700;color:#fff;text-transform:none;letter-spacing:0}
-.nl-cj{background:var(--cj)}.nl-aw{background:var(--aw)}.nl-amz{background:var(--amz)}.nl-rap{background:var(--rap)}
-.fr{display:flex;gap:.5rem;align-items:center;margin-bottom:.45rem}
-.fl{font-size:.76rem;font-weight:500;min-width:95px;color:var(--text2)}
-.fr input{flex:1;padding:6px 10px;font-family:'DM Sans',sans-serif;font-size:.76rem;border:1px solid var(--border);border-radius:7px;outline:none;background:var(--bg2);color:var(--text);transition:border-color .15s,var(--transition)}
-.fr input:focus{border-color:var(--accent)}
-.fr input.conn{border-color:var(--green);background:rgba(76,175,125,.06)}
-.fhint{font-size:.69rem;color:var(--muted);margin-bottom:.7rem;padding:.5rem .75rem;background:var(--bg2);border-radius:7px;line-height:1.55;transition:var(--transition)}
-.fhint a{color:var(--accent)}
-.btags{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.65rem}
-.btag{font-size:.67rem;padding:2px 7px;border-radius:10px;background:var(--al);color:var(--ad);font-weight:500;transition:var(--transition)}
-.mf{padding:.7rem 1.4rem 1.4rem;display:flex;gap:.7rem;justify-content:flex-end;align-items:center}
-.btn{padding:6px 16px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .15s;border:1.5px solid transparent}
-.bg{background:transparent;border-color:var(--border);color:var(--text)}.bg:hover{background:var(--bg2)}
-.ba{background:var(--accent);color:#fff;border-color:var(--accent)}.ba:hover{background:var(--ad);border-color:var(--ad)}
-.smsg{font-size:.76rem;color:var(--green);display:none;align-items:center;gap:4px}
-
+/* ── STARS ── */
+.stars-row{display:flex;align-items:center;gap:4px;margin-bottom:.4rem}
+.stars{color:#f5a623;font-size:.82rem;letter-spacing:1px}
+.rating-num{font-size:.75rem;font-weight:600;color:var(--text)}
+.rev-count{font-size:.68rem;color:var(--muted)}
+.photo-count{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.55);color:#fff;font-size:.65rem;padding:2px 7px;border-radius:10px;backdrop-filter:blur(4px)}
+/* ── GALLERY MODAL ── */
+.gov{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:400;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s;padding:1rem}
+.gov.open{opacity:1;pointer-events:all}
+.gmodal{background:var(--surface);border-radius:18px;max-width:900px;width:100%;max-height:92vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 32px 100px rgba(0,0,0,.4);transform:scale(.97);transition:transform .2s,var(--transition)}
+.gov.open .gmodal{transform:scale(1)}
+/* Gallery top: image viewer + thumbnails */
+.g-viewer{position:relative;background:#000;flex-shrink:0}
+.g-main-img{width:100%;height:360px;object-fit:contain;display:block;transition:opacity .2s}
+.g-main-img.fading{opacity:0}
+.g-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.15);border:none;color:#fff;width:40px;height:40px;border-radius:50%;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;backdrop-filter:blur(4px)}
+.g-nav:hover{background:rgba(255,255,255,.3)}
+.g-nav.prev{left:10px}.g-nav.next{right:10px}
+.g-counter{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.5);color:#fff;font-size:.72rem;padding:3px 10px;border-radius:12px;backdrop-filter:blur(4px)}
+.g-thumbs{display:flex;gap:.4rem;padding:.6rem .75rem;overflow-x:auto;background:var(--bg2);scrollbar-width:none;flex-shrink:0}
+.g-thumbs::-webkit-scrollbar{display:none}
+.g-thumb{width:54px;height:54px;object-fit:cover;border-radius:7px;cursor:pointer;opacity:.55;border:2px solid transparent;transition:.15s;flex-shrink:0}
+.g-thumb.active{opacity:1;border-color:var(--accent)}
+.g-thumb:hover{opacity:.85}
+/* Gallery bottom: product info */
+.g-info{padding:1rem 1.25rem;overflow-y:auto;flex:1}
+.g-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.5rem}
+.g-brand{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--accent)}
+.g-close{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--muted);line-height:1;padding:2px;flex-shrink:0}
+.g-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;line-height:1.3;margin-bottom:.45rem}
+.g-stars{display:flex;align-items:center;gap:5px;margin-bottom:.6rem}
+.g-meta{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.7rem}
+.g-tag{font-size:.72rem;padding:3px 9px;border-radius:10px;background:var(--al);color:var(--muted)}
+.g-desc{font-size:.82rem;color:var(--text2);line-height:1.6;margin-bottom:.9rem;max-height:80px;overflow-y:auto}
+.g-footer{display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap}
+.g-price{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--text)}
+.g-buy{padding:9px 22px;border-radius:9px;background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;text-decoration:none;transition:.15s;display:inline-block}
+.g-buy:hover{background:var(--ad)}
+@media(max-width:600px){
+  .gov{padding:0;align-items:flex-end}
+  .gmodal{border-radius:20px 20px 0 0;max-height:95vh;max-width:100%}
+  .g-main-img{height:260px}
+  .g-name{font-size:.95rem}
+  .g-price{font-size:1.2rem}
+}
 /* ── DIVIDER ── */
 footer{border-top:1px solid var(--border);padding:1.4rem 2rem;text-align:center;font-size:.73rem;color:var(--muted);margin-top:3rem;transition:var(--transition)}
-
 /* ── TABLET ── */
 @media(max-width:900px){
   main{padding:1.25rem}
@@ -225,9 +203,7 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;text-align:center;
   .grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.85rem}
   .controls{flex-wrap:wrap;gap:.45rem}.sp{display:none}
   .sw input{width:155px}
-  .modal{max-width:540px}
 }
-
 /* ── MOBILE ── */
 @media(max-width:600px){
   header{padding:0 .85rem}
@@ -235,16 +211,11 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;text-align:center;
   .logo{font-size:1.15rem}
   .ls{display:none}
   .lpill{display:none}
-  .sbtn{font-size:.73rem;padding:4px 9px}
   main{padding:.85rem}
   .hero{margin-bottom:1rem;gap:.45rem}
   .ht h1{font-size:1.4rem}
   .ht p{font-size:.78rem}
   .hstats{display:none}
-  .nbar{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:3px;margin-bottom:.9rem}
-  .nbar::-webkit-scrollbar{display:none}
-  .nchip{white-space:nowrap;flex-shrink:0;font-size:.69rem;padding:4px 9px}
-  .bcount{display:none}
   .tg{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;width:100%}
   .tg::-webkit-scrollbar{display:none}
   .tab{white-space:nowrap;flex-shrink:0;font-size:.76rem;padding:5px 11px}
@@ -271,21 +242,6 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;text-align:center;
   .rc{font-size:.69rem}
   .pagination{gap:.3rem;margin-top:1.5rem}
   .pg-btn{min-width:32px;height:32px;font-size:.74rem}
-  .ov{padding:0;align-items:flex-end}
-  .modal{border-radius:20px 20px 0 0;max-height:92vh;width:100%;max-width:100%}
-  .drag-handle{display:flex}
-  .mh{padding:1rem 1.1rem .6rem}
-  .mh h2{font-size:1.05rem}.mh p{font-size:.72rem}
-  .mb{padding:1rem 1.1rem}
-  .ns{margin-bottom:1.1rem}
-  .ns h3{font-size:.72rem}
-  .fr{flex-direction:column;align-items:flex-start;gap:.28rem}
-  .fl{min-width:unset;font-size:.72rem}
-  .fr input{width:100%;padding:8px 10px}
-  .fhint{font-size:.67rem}
-  .mf{padding:.6rem 1.1rem 1.2rem;flex-wrap:wrap;gap:.45rem}
-  .mf .btn{flex:1;text-align:center;padding:9px}
-  .smsg{flex:1 1 100%}
   footer{padding:1.1rem .85rem;font-size:.69rem}
   .toast-wrap{bottom:1rem;right:.85rem;left:.85rem}
   .toast{max-width:100%}
@@ -301,84 +257,48 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;text-align:center;
 </style>
 </head>
 <body>
-
 <!-- HEADER -->
 <header>
   <div class="hi">
     <div class="logo">Trendr<span class="ld">.</span><span class="ls">Daily Rankings</span></div>
     <div class="hright">
-      <div class="lpill"><span class="ldot"></span><span id="liveText">Demo data</span></div>
+      <div class="lpill"><span class="ldot"></span><span id="liveText">Loading...</span></div>
       <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle dark mode">🌙</button>
-      <button class="sbtn" onclick="openSettings()">⚙ APIs</button>
     </div>
   </div>
 </header>
-
 <!-- BACK TO TOP -->
 <button class="btt" id="bttBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
-
 <!-- TOAST CONTAINER -->
 <div class="toast-wrap" id="toastWrap"></div>
-
-<!-- SETTINGS MODAL -->
-<div class="ov" id="overlay" onclick="closeOnBg(event)">
-  <div class="modal">
-    <div class="drag-handle"><div></div></div>
-    <div class="mh">
-      <div><h2>Connect Data Networks</h2><p>Join once → real product data from 30,000+ brands instantly</p></div>
-      <button class="xbtn" onclick="closeSettings()">✕</button>
+<!-- GALLERY MODAL -->
+<div class="gov" id="gov" onclick="closeGalleryOnBg(event)">
+  <div class="gmodal">
+    <div class="g-viewer">
+      <img class="g-main-img" id="gMainImg" src="" alt=""/>
+      <button class="g-nav prev" id="gPrev" onclick="gNav(-1)">‹</button>
+      <button class="g-nav next" id="gNext" onclick="gNav(1)">›</button>
+      <span class="g-counter" id="gCounter">1 / 1</span>
     </div>
-    <div class="mb">
-      <div class="ns">
-        <h3><span class="nl nl-cj">CJ Affiliate</span> ~3,000 brands · Nike, Zappos, Nordstrom, Foot Locker…</h3>
-        <div class="fhint">1. <a href="https://developers.cj.com" target="_blank">developers.cj.com</a> → API Keys → create Publisher key<br>2. Find your Website ID in CJ account settings</div>
-        <div class="btags" id="cj-btags"></div>
-        <div class="fr"><span class="fl">API Key</span><input type="password" id="cj_key" placeholder="CJ Publisher API key…"/></div>
-        <div class="fr"><span class="fl">Website ID</span><input type="text" id="cj_wid" placeholder="Your CJ publisher/website ID…"/></div>
-      </div>
-      <div class="ns">
-        <h3><span class="nl nl-aw">Awin</span> ~25,000 brands · Adidas, Lululemon, ASOS, Zara, H&M…</h3>
-        <div class="fhint">1. <a href="https://ui.awin.com/user/account/api" target="_blank">ui.awin.com</a> → My Account → API → generate key<br>2. Publisher ID shown top-right of Awin dashboard</div>
-        <div class="btags" id="awin-btags"></div>
-        <div class="fr"><span class="fl">API Key</span><input type="password" id="awin_key" placeholder="Awin API key…"/></div>
-        <div class="fr"><span class="fl">Publisher ID</span><input type="text" id="awin_pub" placeholder="Your Awin publisher ID…"/></div>
-      </div>
-      <div class="ns">
-        <h3><span class="nl nl-amz">Amazon PA-API</span> All brands on Amazon · hourly bestseller rank</h3>
-        <div class="fhint">1. <a href="https://affiliate-program.amazon.com" target="_blank">affiliate-program.amazon.com</a> → sign up (same-day)<br>2. Tools → Product Advertising API → Manage credentials</div>
-        <div class="btags" id="amz-btags"></div>
-        <div class="fr"><span class="fl">Access Key</span><input type="password" id="amz_acc" placeholder="AWS Access Key ID…"/></div>
-        <div class="fr"><span class="fl">Secret Key</span><input type="password" id="amz_sec" placeholder="AWS Secret Access Key…"/></div>
-        <div class="fr"><span class="fl">Associate ID</span><input type="text" id="amz_aid" placeholder="yoursite-20"/></div>
-      </div>
-      <div class="ns">
-        <h3><span class="nl nl-rap">RapidAPI</span> Fastest to set up · works immediately</h3>
-        <div class="fhint">
-          <strong>⚡ 5 steps to get your key:</strong><br>
-          1. Go to <a href="https://rapidapi.com/letscrape-6bRBa3QguO5/api/real-time-product-search" target="_blank"><strong>rapidapi.com → Real-Time Product Search ↗</strong></a><br>
-          2. Click <strong>Pricing</strong> tab → click <strong>Subscribe</strong> on the <strong>Basic (free)</strong> plan<br>
-          3. Click <strong>Endpoints</strong> tab → look at the right-side code panel<br>
-          4. Copy the long string next to <strong>"X-RapidAPI-Key":</strong><br>
-          5. Paste below and hit <strong>🔌 Test Key</strong> to confirm it works
+    <div class="g-thumbs" id="gThumbs"></div>
+    <div class="g-info">
+      <div class="g-top">
+        <div>
+          <div class="g-brand" id="gBrand"></div>
         </div>
-        <div class="fr">
-          <span class="fl">API Key</span>
-          <input type="password" id="rap_key" placeholder="Paste your X-RapidAPI-Key here…" oninput="clearTestResult()"/>
-        </div>
-        <div style="display:flex;gap:.5rem;align-items:center;margin-top:.5rem;flex-wrap:wrap">
-          <button class="btn bg" id="testBtn" onclick="testRapidKey()" style="font-size:.74rem;padding:5px 14px">🔌 Test Key</button>
-          <span id="testResult" style="font-size:.75rem;line-height:1.4;flex:1;min-width:0"></span>
-        </div>
+        <button class="g-close" onclick="closeGallery()">✕</button>
       </div>
-    </div>
-    <div class="mf">
-      <span class="smsg" id="smsg">✅ Saved!</span>
-      <button class="btn bg" onclick="closeSettings()">Cancel</button>
-      <button class="btn ba" onclick="saveKeys()">Save & Connect</button>
+      <div class="g-name" id="gName"></div>
+      <div class="g-stars" id="gStars"></div>
+      <div class="g-meta" id="gMeta"></div>
+      <div class="g-desc" id="gDesc"></div>
+      <div class="g-footer">
+        <div class="g-price" id="gPrice"></div>
+        <a class="g-buy" id="gBuy" href="#" target="_blank" rel="noopener">Buy Now →</a>
+      </div>
     </div>
   </div>
 </div>
-
 <!-- MAIN -->
 <main>
   <div class="hero">
@@ -389,12 +309,8 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;text-align:center;
     <div class="hstats">
       <div class="stat"><div class="sn" id="sBrands">—</div><div class="sl">Brands</div></div>
       <div class="stat"><div class="sn" id="sProds">—</div><div class="sl">Products</div></div>
-      <div class="stat"><div class="sn" id="sNets">0</div><div class="sl">Networks</div></div>
     </div>
   </div>
-
-  <div class="nbar" id="nbar"></div>
-
   <div class="controls">
     <div class="tg">
       <button class="tab active" onclick="setCat('womens',this)">Women's</button>
@@ -442,23 +358,24 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;text-align:center;
       Refresh
     </button>
   </div>
-
   <div class="gh">
     <div class="gh-left">
       <h2 id="gtitle">Women's — All Brands</h2>
       <span class="rc" id="rcount"></span>
     </div>
   </div>
-
   <div class="grid" id="grid"></div>
   <div class="pagination" id="pagination"></div>
   <p class="pg-info" id="pgInfo"></p>
 </main>
-
 <footer>© 2025 <a href="https://trendrshop.me" style="color:var(--accent);text-decoration:none">trendrshop.me</a> &nbsp;·&nbsp; Daily rankings across 30,000+ brands &nbsp;·&nbsp; Rankings refresh daily</footer>
-
 <script>
 'use strict';
+// ══════════════════════════════════
+// 🔧 CONFIGURATION - YOUR CLOUDFLARE WORKER URL
+// ══════════════════════════════════
+const WORKER_URL = 'https://apiproxy.trendrconnect.workers.dev';
+
 // ══════════════════════════════════
 // STATE
 // ══════════════════════════════════
@@ -467,10 +384,6 @@ let allProds = [];
 let filtered = [];
 let currentPage = 1;
 let perPage = 12;
-
-// Simple localStorage helpers
-const LS = { cj:'trendr_cj_key',cj_wid:'trendr_cj_wid',awin:'trendr_awin_key',awin_pub:'trendr_awin_pub',amz:'trendr_amz_acc',amz_sec:'trendr_amz_sec',amz_aid:'trendr_amz_aid',rap:'trendr_rap_key' };
-const lsGet = k => localStorage.getItem(LS[k])||'';
 
 // ══════════════════════════════════
 // THEME
@@ -518,16 +431,6 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 // ══════════════════════════════════
-// NETWORK DATA
-// ══════════════════════════════════
-const NETS = [
-  { id:'cj',       lk:'cj',  label:'CJ Affiliate', count:'3,000',  brands:['Nike','Zappos','Nordstrom','J.Crew','DSW','Foot Locker','Ann Taylor','Calvin Klein','Tommy Hilfiger','Athleta','Express','Talbots','Lane Bryant','BCBG','Lucky Brand'] },
-  { id:'awin',     lk:'awin',label:'Awin',          count:'25,000', brands:['Adidas','Lululemon','ASOS','H&M','Zara','Farfetch','NET-A-PORTER','Revolve','Free People','Anthropologie','Urban Outfitters','Ted Baker','AllSaints','Reiss','Boohoo','Nasty Gal'] },
-  { id:'amazon',   lk:'amz', label:'Amazon PA-API', count:'∞',      brands:['Under Armour','Puma','New Balance','Champion','Reebok','Fila','Saucony','Brooks','Asics','Columbia','The North Face','Patagonia','Uniqlo','Gap','Old Navy','Carhartt'] },
-  { id:'rapidapi', lk:'rap', label:'RapidAPI',      count:'500',    brands:['Nike','Adidas','Lululemon','Puma','Under Armour'] },
-];
-
-// ══════════════════════════════════
 // DEMO DATA — 4 categories, 12 each
 // ══════════════════════════════════
 const I = {
@@ -551,7 +454,6 @@ const I = {
   mg:'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=75',
 };
 const P = (r,br,n,pr,co,sz,sc,tr,im,url,src='demo') => ({rank:r,brand:br,name:n,price:pr,color:co,size:sz,sales:sc,trend:tr,img:I[im]||I.as,url,src});
-
 const DEMO = {
   womens:[
     P(1,'Lululemon','Align High-Rise Pant 28"',128,'Black','M',18420,'up','ll','https://lululemon.com'),
@@ -612,125 +514,9 @@ const DEMO = {
 };
 
 // ══════════════════════════════════
-// NETWORK BAR
-// ══════════════════════════════════
-function renderNBar() {
-  const live = NETS.filter(n => lsGet(n.lk)).map(n => n.id);
-  document.getElementById('nbar').innerHTML = NETS.map(n => `
-    <div class="nchip ${live.includes(n.id)?'conn '+n.id:'disc'}" onclick="openSettings()">
-      <span class="cdot"></span>
-      <strong>${n.label}</strong>
-      <span class="bcount">${n.count === '∞' ? 'All Amazon brands' : n.count+' brands'}</span>
-    </div>`).join('');
-  document.getElementById('sNets').textContent = live.length;
-}
-
-// ══════════════════════════════════
-// MODAL
-// ══════════════════════════════════
-function renderModalContent() {
-  NETS.forEach(n => {
-    const el = document.getElementById(n.id+'-btags');
-    if (el) el.innerHTML = n.brands.map(b=>`<span class="btag">${b}</span>`).join('')+`<span class="btag" style="opacity:.5">+more</span>`;
-  });
-  const vals = {cj_key:lsGet('cj'),cj_wid:lsGet('cj_wid'),awin_key:lsGet('awin'),awin_pub:lsGet('awin_pub'),amz_acc:lsGet('amz'),amz_sec:lsGet('amz_sec'),amz_aid:lsGet('amz_aid'),rap_key:lsGet('rap')};
-  Object.entries(vals).forEach(([id,v]) => { const el=document.getElementById(id); if(el){el.value=v;if(v)el.classList.add('conn');} });
-}
-// ── RapidAPI config (update here if host ever changes) ──
-const RAPID_HOST = 'real-time-product-search.p.rapidapi.com';
-const RAPID_BASE = 'https://real-time-product-search.p.rapidapi.com';
-
-async function testRapidKey() {
-  const key = document.getElementById('rap_key')?.value?.trim();
-  const result = document.getElementById('testResult');
-  const btn = document.getElementById('testBtn');
-  if (!key) { result.textContent = '⚠️ Paste a key first'; result.style.color='var(--red)'; return; }
-  btn.textContent = '⏳ Testing…'; btn.disabled = true;
-  result.textContent = ''; result.style.color = '';
-  try {
-    const res = await fetch(
-      `${RAPID_BASE}/search-v2?q=nike+shirt&country=us&language=en&limit=1&sort_by=BEST_MATCH&product_condition=ANY`,
-      { headers:{'X-RapidAPI-Key':key,'X-RapidAPI-Host':RAPID_HOST} }
-    );
-    // Show raw status always so we can debug
-    let bodyText = '';
-    try { bodyText = await res.text(); } catch(e){}
-
-    if (res.ok) {
-      try {
-        const d = JSON.parse(bodyText);
-        const products = d.data?.products || d.products || d.data || [];
-        const count = Array.isArray(products) ? products.length : 0;
-        result.innerHTML = count > 0
-          ? `✅ <strong>Connected! Key works perfectly.</strong>`
-          : `⚠️ Key accepted but no results returned. Try refreshing.`;
-        result.style.color = count > 0 ? 'var(--green)' : 'var(--accent)';
-        document.getElementById('rap_key').classList.add('conn');
-      } catch(e) {
-        result.textContent = `⚠️ Got response but couldn't parse it. Status: ${res.status}`;
-        result.style.color = 'var(--accent)';
-      }
-    } else {
-      // Show exact status + body so we know what's happening
-      const preview = bodyText.slice(0, 120);
-      const msgs = {
-        401: '❌ 401 — Key is invalid. Re-copy the X-RapidAPI-Key from your RapidAPI app.',
-        403: '❌ 403 — Not subscribed. Go to the API Pricing tab and click Subscribe on the free plan.',
-        404: '❌ 404 — Wrong endpoint. The API may have moved. Contact support or try re-subscribing.',
-        429: '⚠️ 429 — Rate limit hit. Key works! Just used up free quota. Wait or upgrade.',
-      };
-      result.innerHTML = `${msgs[res.status] || `❌ HTTP ${res.status} error`}<br><small style="opacity:.7">${preview}</small>`;
-      result.style.color = res.status === 429 ? 'var(--accent)' : 'var(--red)';
-      if (res.status === 429) document.getElementById('rap_key').classList.add('conn');
-    }
-  } catch(e) {
-    result.innerHTML = `❌ Network error: ${e.message}<br><small style="opacity:.7">Check browser console (F12) for details.</small>`;
-    result.style.color = 'var(--red)';
-  }
-  btn.textContent = '🔌 Test Key'; btn.disabled = false;
-}
-function clearTestResult() {
-  const r = document.getElementById('testResult');
-  if (r) { r.textContent = ''; }
-  document.getElementById('rap_key')?.classList.remove('conn');
-}
-
-function saveKeys() {
-  // Map: HTML input id → LS key name
-  const map = {
-    cj_key:'cj', cj_wid:'cj_wid',
-    awin_key:'awin', awin_pub:'awin_pub',
-    amz_acc:'amz', amz_sec:'amz_sec', amz_aid:'amz_aid',
-    rap_key:'rap'   // rap_key input → trendr_rap_key in localStorage
-  };
-  let saved = 0;
-  Object.entries(map).forEach(([inputId, lsKey]) => {
-    const el = document.getElementById(inputId);
-    const v = el?.value?.trim() || '';
-    if (v) {
-      localStorage.setItem(LS[lsKey], v);
-      saved++;
-    }
-  });
-  const msg = document.getElementById('smsg');
-  msg.style.display = 'flex';
-  setTimeout(() => {
-    msg.style.display = 'none';
-    closeSettings();
-    renderNBar();
-    loadData(); // immediately fetch with the new key
-    toast(`✅ ${saved} key${saved!==1?'s':''} saved — loading live data…`);
-  }, 700);
-}
-function openSettings(){ renderModalContent(); document.getElementById('overlay').classList.add('open'); }
-function closeSettings(){ document.getElementById('overlay').classList.remove('open'); }
-function closeOnBg(e){ if(e.target.id==='overlay') closeSettings(); }
-
-// ══════════════════════════════════
 // CATEGORY
 // ══════════════════════════════════
 const CLABELS = {womens:"Women's",mens:"Men's",sneakers:"Sneakers",accessories:"Accessories"};
-
 function setCat(c, btn) {
   cat = c; currentPage = 1;
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
@@ -739,7 +525,6 @@ function setCat(c, btn) {
   document.getElementById('srch').value='';
   loadData();
 }
-
 function populateBrands(prods) {
   const brands = [...new Set(prods.map(p=>p.brand))].sort();
   const sel = document.getElementById('fBrand');
@@ -752,7 +537,6 @@ function populateBrands(prods) {
 // ══════════════════════════════════
 function onFilterChange() { currentPage = 1; applyFilters(); }
 function onPerPageChange() { perPage = parseInt(document.getElementById('perPage').value); currentPage = 1; renderPage(); }
-
 function applyFilters() {
   let f = [...allProds];
   const brand = document.getElementById('fBrand').value;
@@ -761,7 +545,6 @@ function applyFilters() {
   const price = document.getElementById('fPrice').value;
   const sort  = document.getElementById('fSort').value;
   const srch  = document.getElementById('srch').value.toLowerCase().trim();
-
   if (brand) f = f.filter(p=>p.brand===brand);
   if (color) f = f.filter(p=>p.color.toLowerCase().includes(color.toLowerCase()));
   if (size)  f = f.filter(p=>!p.size||p.size===size);
@@ -772,7 +555,6 @@ function applyFilters() {
   if(sort==='price-desc') f.sort((a,b)=>b.price-a.price);
   if(sort==='score')      f.sort((a,b)=>b.sales-a.sales);
   if(sort==='rank')       f.sort((a,b)=>a.rank-b.rank);
-
   filtered = f;
   const bl = brand||'All Brands';
   const cl = color?` · ${color}`:'';
@@ -788,39 +570,28 @@ function renderPage() {
   const total = filtered.length;
   const totalPages = Math.max(1, Math.ceil(total / perPage));
   if (currentPage > totalPages) currentPage = totalPages;
-
   const start = (currentPage - 1) * perPage;
   const end   = Math.min(start + perPage, total);
   const pageItems = filtered.slice(start, end);
-
   renderProds(pageItems);
   renderPagination(totalPages);
-
   if (total > 0) {
     document.getElementById('pgInfo').textContent = `Showing ${start+1}–${end} of ${total} items`;
   } else {
     document.getElementById('pgInfo').textContent = '';
   }
 }
-
 function goPage(n) {
   currentPage = n;
   renderPage();
-  // Smooth scroll to grid top
   document.getElementById('grid').scrollIntoView({behavior:'smooth', block:'start'});
 }
-
 function renderPagination(totalPages) {
   const pg = document.getElementById('pagination');
   if (totalPages <= 1) { pg.innerHTML = ''; return; }
-
   const cur = currentPage;
   let html = '';
-
-  // Prev
   html += `<button class="pg-btn" onclick="goPage(${cur-1})" ${cur===1?'disabled':''}>‹</button>`;
-
-  // Page numbers with ellipsis
   const pages = getPageNumbers(cur, totalPages);
   pages.forEach(p => {
     if (p === '...') {
@@ -829,13 +600,9 @@ function renderPagination(totalPages) {
       html += `<button class="pg-btn${p===cur?' active':''}" onclick="goPage(${p})">${p}</button>`;
     }
   });
-
-  // Next
   html += `<button class="pg-btn" onclick="goPage(${cur+1})" ${cur===totalPages?'disabled':''}>›</button>`;
-
   pg.innerHTML = html;
 }
-
 function getPageNumbers(cur, total) {
   if (total <= 7) return Array.from({length:total},(_,i)=>i+1);
   const pages = [];
@@ -854,24 +621,25 @@ async function loadData() {
   const btn = document.getElementById('rbtn');
   btn.classList.add('loading');
   showSkel();
-
-  const rapidKey = lsGet('rap');
+  
   let loaded = false;
-
-  if (rapidKey) {
-    try { await fetchRapid(rapidKey); loaded = true; }
-    catch(e) {
-      console.warn('RapidAPI error:', e.message);
-      toast(`⚠️ ${e.message || 'API error'} — showing demo data`, 4000);
-    }
+  
+  // Try to fetch from Cloudflare Worker
+  try { 
+    await fetchRapid(); 
+    loaded = true; 
   }
-
+  catch(e) {
+    console.warn('API error:', e.message);
+    toast(`⚠️ ${e.message || 'API error'} — showing demo data`, 4000);
+  }
+  
   if (!loaded) {
     await new Promise(r=>setTimeout(r,350));
     allProds = DEMO[cat];
-    document.getElementById('liveText').textContent = 'Demo — connect APIs for live data';
+    document.getElementById('liveText').textContent = 'Demo data';
   }
-
+  
   populateBrands(allProds);
   document.getElementById('sProds').textContent = allProds.length;
   document.getElementById('sBrands').textContent = [...new Set(allProds.map(p=>p.brand))].length;
@@ -880,74 +648,129 @@ async function loadData() {
 }
 
 // ══════════════════════════════════
-// API FETCH
+// API FETCH VIA CLOUDFLARE WORKER
 // ══════════════════════════════════
 const QUERIES = {
-  womens:'womens athletic clothing Nike Adidas Lululemon Zara ASOS Free People',
-  mens:'mens athletic clothing Nike Adidas Champion Zara H&M North Face',
-  sneakers:'sneakers Nike Jordan New Balance Adidas Converse Vans Asics',
-  accessories:'fashion accessories bags hats Lululemon Nike belt bag',
+  womens:[
+    'Nike womens leggings tights sports bra',
+    'Adidas womens hoodie jacket tracksuit',
+    'Zara H&M ASOS womens dress top',
+    'Lululemon Free People Revolve womens clothing',
+    'Under Armour Puma womens athletic wear',
+  ],
+  mens:[
+    'Nike mens hoodie joggers tracksuit',
+    'Adidas mens jacket shorts t-shirt',
+    'Zara H&M mens shirt chino trousers',
+    'Lululemon Champion mens athletic clothing',
+    'The North Face Columbia mens jacket',
+  ],
+  sneakers:[
+    'Nike Air Force Jordan sneakers shoes',
+    'Adidas Stan Smith Ultraboost sneakers',
+    'New Balance Converse Vans sneakers',
+    'Asics Brooks Saucony running shoes',
+    'Puma Reebok Fila sneakers',
+  ],
+  accessories:[
+    'Nike Adidas sports bag backpack',
+    'Lululemon belt bag crossbody purse',
+    'sunglasses hat cap beanie fashion',
+    'Zara Mango ASOS handbag tote',
+    'North Face Columbia travel bag',
+  ],
 };
-const BRANDS_DB = ['Nike','Adidas','Lululemon','Under Armour','Puma','New Balance','Reebok','Converse','Vans','Jordan','Asics','Fila','Saucony','Brooks','Champion','H&M','Zara','ASOS','Revolve','Free People','Anthropologie','Urban Outfitters','Mango','Ted Baker','Nordstrom','J.Crew','Gap','Old Navy','Banana Republic','Express','Forever 21','Patagonia','The North Face','Columbia','Uniqlo','Carhartt'];
 
-async function fetchRapid(key) {
-  const url = `${RAPID_BASE}/search-v2?q=${encodeURIComponent(QUERIES[cat])}&country=us&language=en&limit=20&sort_by=BEST_MATCH&product_condition=ANY&return_filters=true`;
-  const res = await fetch(url, {
-    headers:{'X-RapidAPI-Key':key,'X-RapidAPI-Host':RAPID_HOST}
+const BRANDS_DB = ['Nike','Adidas','Lululemon','Under Armour','Puma','New Balance','Reebok','Converse','Vans','Jordan','Asics','Fila','Saucony','Brooks','Champion','H&M','Zara','ASOS','Revolve','Free People','Anthropologie','Urban Outfitters','Mango','Ted Baker','Nordstrom','J.Crew','Gap','Old Navy','Banana Republic','Express','Forever 21','Patagonia','The North Face','Columbia','Uniqlo','Carhartt','Gymshark','Sweaty Betty','Arc\'teryx','Ralph Lauren','Tommy Hilfiger','Calvin Klein','Levis'];
+
+async function fetchRapid() {
+  const queries = QUERIES[cat].slice(0, 3);
+  
+  const results = await Promise.allSettled(queries.map(q =>
+    fetch(`${WORKER_URL}?q=${encodeURIComponent(q)}&category=${cat}`)
+      .then(r => { 
+        if(!r.ok) throw new Error(`HTTP ${r.status}`); 
+        return r.json(); 
+      })
+  ));
+
+  const seen = new Set();
+  const raw = [];
+  results.forEach(r => {
+    if (r.status === 'fulfilled') {
+      const items = r.value?.data?.products || r.value?.products || r.value?.data || [];
+      items.forEach(p => {
+        const id = p.product_id || p.product_title;
+        if (id && !seen.has(id)) { seen.add(id); raw.push(p); }
+      });
+    }
   });
-  if (!res.ok) {
-    const msg = {
-      401:'Invalid API key — check you copied the full key',
-      403:'Forbidden — make sure you subscribed to the free plan on RapidAPI',
-      404:'Endpoint not found — you may need to re-subscribe to Real-Time Product Search',
-      429:'Rate limit hit — free tier is 100 req/month, upgrade or wait',
-    }[res.status] || `HTTP ${res.status} error`;
-    throw new Error(msg);
-  }
-  const data = await res.json();
-  // search-v2 returns data.data.products or data.products depending on version
-  const raw = data.data?.products || data.products || data.data || [];
-  if (!raw.length) throw new Error('No products returned — try a different category');
+
+  if (!raw.length) throw new Error('No products returned — check your worker configuration');
 
   const mapped = raw.map((p,i)=>{
-    const photos = p.product_photos||[];
-    // Accept any URL including Google Shopping encrypted-tbn gstatic URLs
-    const img = photos.find(u=>u && (u.startsWith('https') || u.startsWith('http'))) || photos[0] || I.as;
+    const photos = (p.product_photos||[]).filter(u=>u&&u.length>10);
+    const img = photos[0] || I.as;
     const rawUrl = p.offer?.store_link || p.offer?.offer_page_url || p.product_page_url || '';
     const url2 = rawUrl.startsWith('http') ? rawUrl : (rawUrl ? 'https://'+rawUrl : '#');
     const priceRaw = p.offer?.price || p.typical_price_range?.[0] || '0';
     const price = parseFloat(priceRaw.toString().replace(/[^0-9.]/g,'')) || 0;
+    const searchText = [p.product_title, p.product_description, ...(p.product_highlights||[])].join(' ');
+    const color = exColor(searchText);
+    const size = exSize(searchText);
+    const rating  = parseFloat(p.product_rating) || 0;
+    const reviews = parseInt(p.reviews?.total_reviews) || 0;
+    const desc = (p.product_description||'').slice(0,160).trim();
     const score = rankSc(p, i);
     return {
-      rank:i+1, brand:exBrand(p.product_title),
-      name:(p.product_title||'Unknown Product').replace(/[<>]/g,'').slice(0,65),
-      price, color:exColor(p.product_title), size:'',
-      sales:score,
+      rank:i+1,
+      brand: exBrand(p.product_title),
+      name: (p.product_title||'Unknown Product').replace(/[<>]/g,'').slice(0,70),
+      price, color, size,
+      rating, reviews,
+      desc,
+      sales: score,
       trend: score>5000?'up':score>1000?'same':'down',
-      img, url:url2, src:'rapidapi'
+      img,
+      photos,
+      url: url2,
+      src:'rapidapi'
     };
   });
-  mapped.sort((a,b)=>b.sales-a.sales).forEach((p,i)=>p.rank=i+1);
-  allProds = mapped;
+
+  mapped.sort((a,b)=>b.sales-a.sales);
+  const deduped = [];
+  const namesSeen = new Set();
+  mapped.forEach(p => {
+    const key2 = p.name.toLowerCase().slice(0,30);
+    if (!namesSeen.has(key2)) { namesSeen.add(key2); deduped.push(p); }
+  });
+  deduped.forEach((p,i)=>p.rank=i+1);
+  allProds = deduped;
   const ts = new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
   document.getElementById('liveText').textContent = `Live · ${ts}`;
-  toast(`✅ Loaded ${mapped.length} live products`);
+  toast(`✅ Loaded ${deduped.length} products from ${[...new Set(deduped.map(p=>p.brand))].length} brands`);
 }
 
 function rankSc(p, fallbackIdx=0){
   const reviews = parseInt(p.reviews?.total_reviews) || 0;
   const rating  = parseFloat(p.product_rating) || 0;
   const bestSeller = p.is_best_seller ? 2000 : 0;
-  const sponsored  = p.is_sponsored   ? -500  : 0; // demote sponsored
-  // If no reviews yet, use position as tiebreaker so products still get ranked
+  const sponsored  = p.is_sponsored   ? -500  : 0;
   const base = reviews > 0 ? (reviews * rating) : (100 - fallbackIdx * 5);
   return Math.round(base + bestSeller + sponsored);
 }
 function exBrand(t=''){ return BRANDS_DB.find(b=>t.toLowerCase().includes(b.toLowerCase()))||'Brand'; }
-function exColor(t=''){ return ['Black','White','Grey','Blue','Pink','Green','Red','Purple','Brown','Beige','Orange','Navy'].find(c=>t.toLowerCase().includes(c.toLowerCase()))||''; }
+function exColor(t=''){ return ['Black','White','Grey','Gray','Blue','Navy','Pink','Green','Red','Purple','Brown','Beige','Tan','Orange','Yellow','Cream','Ivory','Coral','Teal','Olive','Burgundy','Maroon','Lavender','Mint','Khaki','Camel'].find(c=>t.toLowerCase().includes(c.toLowerCase()))||''; }
+function exSize(t=''){
+  const m = t.match(/\b(XXS|XS|XSmall|Small|Medium|Large|XL|XXL|XXXL|2XL|3XL|EU\s?\d+|US\s?\d+|\bsize\s+(\w+))\b/i);
+  if (m) return m[0].replace(/size\s+/i,'').trim();
+  const shoe = t.match(/\b(US\s?)?(5|5\.5|6|6\.5|7|7\.5|8|8\.5|9|9\.5|10|10\.5|11|11\.5|12|13)\b/);
+  return shoe ? shoe[0].trim() : '';
+}
 
 // ══════════════════════════════════
-// RENDER CARDS — with lazy image loading
+// RENDER CARDS
 // ══════════════════════════════════
 function renderProds(prods) {
   const grid = document.getElementById('grid');
@@ -955,39 +778,40 @@ function renderProds(prods) {
     grid.innerHTML = `<div class="empty"><div class="ei">🔍</div><p>No items match — try different filters.</p></div>`;
     return;
   }
-
-  // Use DocumentFragment for performance
   const frag = document.createDocumentFragment();
   prods.forEach((p, i) => {
     const card = document.createElement('div');
     card.className = 'card';
     card.style.animationDelay = `${i * 0.035}s`;
+    card.setAttribute('onclick', `openGallery(${i + (currentPage-1)*perPage})`);
+    card.style.cursor = 'pointer';
+    const stars = p.rating ? renderStars(p.rating) : '';
+    const reviewTxt = p.reviews ? `<span class="rev-count">(${p.reviews.toLocaleString()})</span>` : '';
     card.innerHTML = `
       <div class="ci">
         <img data-src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='${I.as}'"/>
         <div class="rb ${rc(p.rank)}">#${p.rank}</div>
         <span class="tb ${tc(p.trend)}">${ti(p.trend)} ${cap(p.trend)}</span>
+        ${(p.photos||[]).length > 1 ? `<span class="photo-count">📷 ${p.photos.length}</span>` : ''}
       </div>
       <div class="cb">
         <div class="ct"><span class="cbrand">${p.brand}</span><span class="sb s-${p.src}">${sl(p.src)}</span></div>
         <div class="cname">${p.name}</div>
+        ${stars ? `<div class="stars-row">${stars}${reviewTxt}</div>` : ''}
         <div class="ctags">
-          ${p.color?`<span class="tag">🎨 ${p.color}</span>`:''}
-          ${p.size?`<span class="tag">📏 ${p.size}</span>`:''}
-          ${p.sales>10000?'<span class="tag">🔥 Hot</span>':''}
+          ${p.color ? `<span class="tag">🎨 ${p.color}</span>` : ''}
+          ${p.size  ? `<span class="tag">📏 ${p.size}</span>`  : ''}
+          ${p.sales > 5000 ? '<span class="tag">🔥 Hot</span>' : ''}
         </div>
         <div class="cf">
-          <div><div class="price">${p.price>0?'$'+p.price.toFixed(2):'—'}</div><div class="score">${p.sales.toLocaleString()} score</div></div>
-          <a class="bbtn" href="${p.url}" target="_blank" rel="noopener">Buy →</a>
+          <div><div class="price">${p.price > 0 ? '$' + p.price.toFixed(2) : '—'}</div><div class="score">${p.sales.toLocaleString()} score</div></div>
+          <a class="bbtn" href="${p.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Buy →</a>
         </div>
       </div>`;
     frag.appendChild(card);
   });
-
   grid.innerHTML = '';
   grid.appendChild(frag);
-
-  // Intersection Observer lazy image loader
   const imgs = grid.querySelectorAll('img[data-src]');
   if ('IntersectionObserver' in window) {
     const obs = new IntersectionObserver((entries) => {
@@ -1003,13 +827,18 @@ function renderProds(prods) {
     }, { rootMargin: '200px' });
     imgs.forEach(img => obs.observe(img));
   } else {
-    // Fallback for old browsers
     imgs.forEach(img => { img.src = img.dataset.src; img.classList.add('loaded'); });
   }
 }
+function renderStars(rating) {
+  const full = Math.floor(rating);
+  const half = rating % 1 >= 0.5 ? 1 : 0;
+  const empty = 5 - full - half;
+  return `<span class="stars">${'★'.repeat(full)}${'½'.repeat(half)}${'☆'.repeat(empty)}</span><span class="rating-num">${rating.toFixed(1)}</span>`;
+}
 
 // ══════════════════════════════════
-// SKELETON (matches current perPage)
+// SKELETON
 // ══════════════════════════════════
 function showSkel() {
   document.getElementById('grid').innerHTML = Array(Math.min(perPage, 12)).fill(`
@@ -1026,13 +855,89 @@ function rc(r){ return r===1?'r1':r===2?'r2':r===3?'r3':'rn'; }
 function tc(t){ return t==='up'?'tu':t==='down'?'td':'ts2'; }
 function ti(t){ return t==='up'?'↑':t==='down'?'↓':'—'; }
 function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
-function sl(s){ return {cj:'CJ',awin:'Awin',amazon:'Amazon',rapidapi:'Live',demo:'Demo'}[s]||'Demo'; }
+function sl(s){ return {rapidapi:'Live',demo:'Demo'}[s]||'Demo'; }
+
+// ══════════════════════════════════
+// GALLERY MODAL
+// ══════════════════════════════════
+let gProduct = null;
+let gPhotoIdx = 0;
+function openGallery(idx) {
+  const p = filtered[idx];
+  if (!p) return;
+  gProduct = p;
+  gPhotoIdx = 0;
+  const photos = (p.photos && p.photos.length) ? p.photos : [p.img];
+  document.getElementById('gBrand').textContent = p.brand;
+  document.getElementById('gName').textContent = p.name;
+  document.getElementById('gDesc').textContent = p.desc || 'No description available.';
+  document.getElementById('gPrice').textContent = p.price > 0 ? '$' + p.price.toFixed(2) : '—';
+  document.getElementById('gBuy').href = p.url;
+  const starsEl = document.getElementById('gStars');
+  if (p.rating) {
+    starsEl.innerHTML = `<span class="stars" style="color:#f5a623;font-size:.9rem">${renderStarsStr(p.rating)}</span>
+      <span class="rating-num">${p.rating.toFixed(1)}</span>
+      ${p.reviews ? `<span class="rev-count">(${p.reviews.toLocaleString()} reviews)</span>` : ''}`;
+  } else { starsEl.innerHTML = ''; }
+  const meta = document.getElementById('gMeta');
+  meta.innerHTML = [
+    p.color ? `<span class="g-tag">🎨 ${p.color}</span>` : '',
+    p.size  ? `<span class="g-tag">📏 ${p.size}</span>`  : '',
+    p.sales > 5000 ? '<span class="g-tag">🔥 Trending</span>' : '',
+    `<span class="g-tag">#${p.rank} Ranked</span>`,
+    p.trend === 'up' ? '<span class="g-tag">↑ Rising</span>' : '',
+  ].filter(Boolean).join('');
+  const thumbs = document.getElementById('gThumbs');
+  thumbs.innerHTML = photos.map((url, i) =>
+    `<img class="g-thumb${i===0?' active':''}" src="${url}" onclick="gSetPhoto(${i})" onerror="this.style.display='none'" alt="Photo ${i+1}"/>`
+  ).join('');
+  thumbs.style.display = photos.length > 1 ? 'flex' : 'none';
+  document.getElementById('gPrev').style.display = photos.length > 1 ? '' : 'none';
+  document.getElementById('gNext').style.display = photos.length > 1 ? '' : 'none';
+  gSetPhoto(0);
+  document.getElementById('gov').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function gSetPhoto(idx) {
+  const photos = (gProduct?.photos?.length) ? gProduct.photos : [gProduct?.img || ''];
+  if (idx < 0) idx = photos.length - 1;
+  if (idx >= photos.length) idx = 0;
+  gPhotoIdx = idx;
+  const mainImg = document.getElementById('gMainImg');
+  mainImg.classList.add('fading');
+  setTimeout(() => {
+    mainImg.src = photos[idx];
+    mainImg.onload = () => mainImg.classList.remove('fading');
+    mainImg.onerror = () => { mainImg.src = I.as; mainImg.classList.remove('fading'); };
+  }, 150);
+  document.getElementById('gCounter').textContent = `${idx + 1} / ${photos.length}`;
+  document.querySelectorAll('.g-thumb').forEach((t, i) => {
+    t.classList.toggle('active', i === idx);
+  });
+}
+function gNav(dir) { gSetPhoto(gPhotoIdx + dir); }
+function closeGallery() {
+  document.getElementById('gov').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeGalleryOnBg(e) { if (e.target.id === 'gov') closeGallery(); }
+document.addEventListener('keydown', e => {
+  const open = document.getElementById('gov').classList.contains('open');
+  if (!open) return;
+  if (e.key === 'ArrowRight') gNav(1);
+  if (e.key === 'ArrowLeft')  gNav(-1);
+  if (e.key === 'Escape')     closeGallery();
+});
+function renderStarsStr(r) {
+  const full = Math.floor(r);
+  const half = r % 1 >= 0.5;
+  return '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(5 - full - (half?1:0));
+}
 
 // ══════════════════════════════════
 // INIT
 // ══════════════════════════════════
 initTheme();
-renderNBar();
 loadData();
 </script>
 </body>
