@@ -352,16 +352,22 @@ footer{border-top:1px solid var(--border);padding:1.4rem 2rem;text-align:center;
         <div class="fr"><span class="fl">Associate ID</span><input type="text" id="amz_aid" placeholder="yoursite-20"/></div>
       </div>
       <div class="ns">
-        <h3><span class="nl nl-rap">RapidAPI</span> Fallback · works immediately</h3>
-        <div class="fhint">Free key at <a href="https://rapidapi.com/letscrape-6bJTR3j6sn/api/real-time-product-search" target="_blank">RapidAPI → Real-Time Product Search</a>. 100 req/month free.<br>
-        <strong>How to get it:</strong> Sign up → search "Real-Time Product Search" → Subscribe (free tier) → copy the <em>X-RapidAPI-Key</em> from the code examples.</div>
+        <h3><span class="nl nl-rap">RapidAPI</span> Fastest to set up · works immediately</h3>
+        <div class="fhint">
+          <strong>⚡ 5 steps to get your key:</strong><br>
+          1. Go to <a href="https://rapidapi.com/letscrape-6bRBa3QguO5/api/real-time-product-search" target="_blank"><strong>rapidapi.com → Real-Time Product Search ↗</strong></a><br>
+          2. Click <strong>Pricing</strong> tab → click <strong>Subscribe</strong> on the <strong>Basic (free)</strong> plan<br>
+          3. Click <strong>Endpoints</strong> tab → look at the right-side code panel<br>
+          4. Copy the long string next to <strong>"X-RapidAPI-Key":</strong><br>
+          5. Paste below and hit <strong>🔌 Test Key</strong> to confirm it works
+        </div>
         <div class="fr">
           <span class="fl">API Key</span>
           <input type="password" id="rap_key" placeholder="Paste your X-RapidAPI-Key here…" oninput="clearTestResult()"/>
         </div>
-        <div style="display:flex;gap:.5rem;align-items:center;margin-top:.4rem">
-          <button class="btn bg" id="testBtn" onclick="testRapidKey()" style="font-size:.74rem;padding:5px 12px">🔌 Test Key</button>
-          <span id="testResult" style="font-size:.76rem"></span>
+        <div style="display:flex;gap:.5rem;align-items:center;margin-top:.5rem;flex-wrap:wrap">
+          <button class="btn bg" id="testBtn" onclick="testRapidKey()" style="font-size:.74rem;padding:5px 14px">🔌 Test Key</button>
+          <span id="testResult" style="font-size:.75rem;line-height:1.4;flex:1;min-width:0"></span>
         </div>
       </div>
     </div>
@@ -630,6 +636,10 @@ function renderModalContent() {
   const vals = {cj_key:lsGet('cj'),cj_wid:lsGet('cj_wid'),awin_key:lsGet('awin'),awin_pub:lsGet('awin_pub'),amz_acc:lsGet('amz'),amz_sec:lsGet('amz_sec'),amz_aid:lsGet('amz_aid'),rap_key:lsGet('rap')};
   Object.entries(vals).forEach(([id,v]) => { const el=document.getElementById(id); if(el){el.value=v;if(v)el.classList.add('conn');} });
 }
+// ── RapidAPI config (update here if host ever changes) ──
+const RAPID_HOST = 'real-time-product-search.p.rapidapi.com';
+const RAPID_BASE = 'https://real-time-product-search.p.rapidapi.com';
+
 async function testRapidKey() {
   const key = document.getElementById('rap_key')?.value?.trim();
   const result = document.getElementById('testResult');
@@ -639,28 +649,41 @@ async function testRapidKey() {
   result.textContent = ''; result.style.color = '';
   try {
     const res = await fetch(
-      'https://real-time-product-search.p.rapidapi.com/search?q=nike+shirt&country=us&language=en&limit=1',
-      { headers:{'X-RapidAPI-Key':key,'X-RapidAPI-Host':'real-time-product-search.p.rapidapi.com'} }
+      `${RAPID_BASE}/search?q=nike+shirt&country=us&language=en&limit=1`,
+      { headers:{'X-RapidAPI-Key':key,'X-RapidAPI-Host':RAPID_HOST} }
     );
+    // Show raw status always so we can debug
+    let bodyText = '';
+    try { bodyText = await res.text(); } catch(e){}
+
     if (res.ok) {
-      const d = await res.json();
-      const count = d.data?.length || 0;
-      result.textContent = count > 0 ? `✅ Connected! Key works perfectly.` : `⚠️ Key accepted but no results returned.`;
-      result.style.color = count > 0 ? 'var(--green)' : 'var(--accent)';
-      document.getElementById('rap_key').classList.add('conn');
-    } else if (res.status === 401 || res.status === 403) {
-      result.textContent = '❌ Invalid key — check you copied the full X-RapidAPI-Key value.';
-      result.style.color = 'var(--red)';
-    } else if (res.status === 429) {
-      result.textContent = '⚠️ Rate limit hit — but key is valid! Save and use it.';
-      result.style.color = 'var(--accent)';
-      document.getElementById('rap_key').classList.add('conn');
+      try {
+        const d = JSON.parse(bodyText);
+        const count = d.data?.length || 0;
+        result.innerHTML = count > 0
+          ? `✅ <strong>Connected! Key works perfectly.</strong>`
+          : `⚠️ Key accepted but no results returned. Try refreshing.`;
+        result.style.color = count > 0 ? 'var(--green)' : 'var(--accent)';
+        document.getElementById('rap_key').classList.add('conn');
+      } catch(e) {
+        result.textContent = `⚠️ Got response but couldn't parse it. Status: ${res.status}`;
+        result.style.color = 'var(--accent)';
+      }
     } else {
-      result.textContent = `❌ Error ${res.status} — try again.`;
-      result.style.color = 'var(--red)';
+      // Show exact status + body so we know what's happening
+      const preview = bodyText.slice(0, 120);
+      const msgs = {
+        401: '❌ 401 — Key is invalid. Re-copy the X-RapidAPI-Key from your RapidAPI app.',
+        403: '❌ 403 — Not subscribed. Go to the API Pricing tab and click Subscribe on the free plan.',
+        404: '❌ 404 — Wrong endpoint. The API may have moved. Contact support or try re-subscribing.',
+        429: '⚠️ 429 — Rate limit hit. Key works! Just used up free quota. Wait or upgrade.',
+      };
+      result.innerHTML = `${msgs[res.status] || `❌ HTTP ${res.status} error`}<br><small style="opacity:.7">${preview}</small>`;
+      result.style.color = res.status === 429 ? 'var(--accent)' : 'var(--red)';
+      if (res.status === 429) document.getElementById('rap_key').classList.add('conn');
     }
   } catch(e) {
-    result.textContent = '❌ Network error — check your connection.';
+    result.innerHTML = `❌ Network error: ${e.message}<br><small style="opacity:.7">Check browser console (F12) for details.</small>`;
     result.style.color = 'var(--red)';
   }
   btn.textContent = '🔌 Test Key'; btn.disabled = false;
@@ -836,7 +859,10 @@ async function loadData() {
 
   if (rapidKey) {
     try { await fetchRapid(rapidKey); loaded = true; }
-    catch(e) { console.warn('RapidAPI:', e); toast('⚠️ API fetch failed — showing demo data'); }
+    catch(e) {
+      console.warn('RapidAPI error:', e.message);
+      toast(`⚠️ ${e.message || 'API error'} — showing demo data`, 4000);
+    }
   }
 
   if (!loaded) {
@@ -864,47 +890,41 @@ const QUERIES = {
 const BRANDS_DB = ['Nike','Adidas','Lululemon','Under Armour','Puma','New Balance','Reebok','Converse','Vans','Jordan','Asics','Fila','Saucony','Brooks','Champion','H&M','Zara','ASOS','Revolve','Free People','Anthropologie','Urban Outfitters','Mango','Ted Baker','Nordstrom','J.Crew','Gap','Old Navy','Banana Republic','Express','Forever 21','Patagonia','The North Face','Columbia','Uniqlo','Carhartt'];
 
 async function fetchRapid(key) {
-  const res = await fetch(
-    `https://real-time-product-search.p.rapidapi.com/search?q=${encodeURIComponent(QUERIES[cat])}&country=us&language=en&limit=20`,
-    { headers:{'X-RapidAPI-Key':key,'X-RapidAPI-Host':'real-time-product-search.p.rapidapi.com'} }
-  );
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const url = `${RAPID_BASE}/search?q=${encodeURIComponent(QUERIES[cat])}&country=us&language=en&limit=20`;
+  const res = await fetch(url, {
+    headers:{'X-RapidAPI-Key':key,'X-RapidAPI-Host':RAPID_HOST}
+  });
+  if (!res.ok) {
+    const msg = {
+      401:'Invalid API key — check you copied the full key',
+      403:'Forbidden — make sure you subscribed to the free plan on RapidAPI',
+      404:'Endpoint not found — you may need to re-subscribe to Real-Time Product Search',
+      429:'Rate limit hit — free tier is 100 req/month, upgrade or wait',
+    }[res.status] || `HTTP ${res.status} error`;
+    throw new Error(msg);
+  }
   const data = await res.json();
   const raw = data.data||[];
   if (!raw.length) throw new Error('Empty response');
 
   const mapped = raw.map((p,i)=>{
-    // ── Photo: prefer HTTPS, fallback chain
     const photos = p.product_photos||[];
-    const img = photos.find(u=>u&&u.startsWith('https')) || photos[0] || I.as;
-
-    // ── Link: try multiple fields, ensure absolute URL
+    // Accept any URL including Google Shopping encrypted-tbn gstatic URLs
+    const img = photos.find(u=>u && (u.startsWith('https') || u.startsWith('http'))) || photos[0] || I.as;
     const rawUrl = p.offer?.store_link || p.offer?.offer_page_url || p.product_page_url || '';
-    const url = rawUrl.startsWith('http') ? rawUrl : (rawUrl ? 'https://'+rawUrl : '#');
-
-    // ── Price: strip currency symbols
+    const url2 = rawUrl.startsWith('http') ? rawUrl : (rawUrl ? 'https://'+rawUrl : '#');
     const priceRaw = p.offer?.price || p.typical_price_range?.[0] || '0';
     const price = parseFloat(priceRaw.toString().replace(/[^0-9.]/g,'')) || 0;
-
-    // ── Ranking score: reviews×rating + bestseller + recency boost
     const score = rankSc(p, i);
-
     return {
-      rank: i+1,
-      brand: exBrand(p.product_title),
-      name: (p.product_title||'Unknown Product').replace(/[<>]/g,'').slice(0,65),
-      price,
-      color: exColor(p.product_title),
-      size: '',
-      sales: score,
-      trend: score > 5000 ? 'up' : score > 1000 ? 'same' : 'down',
-      img,
-      url,
-      src: 'rapidapi'
+      rank:i+1, brand:exBrand(p.product_title),
+      name:(p.product_title||'Unknown Product').replace(/[<>]/g,'').slice(0,65),
+      price, color:exColor(p.product_title), size:'',
+      sales:score,
+      trend: score>5000?'up':score>1000?'same':'down',
+      img, url:url2, src:'rapidapi'
     };
   });
-
-  // Sort by score descending, reassign ranks
   mapped.sort((a,b)=>b.sales-a.sales).forEach((p,i)=>p.rank=i+1);
   allProds = mapped;
   const ts = new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
