@@ -649,7 +649,7 @@ async function testRapidKey() {
   result.textContent = ''; result.style.color = '';
   try {
     const res = await fetch(
-      `${RAPID_BASE}/search?q=nike+shirt&country=us&language=en&limit=1`,
+      `${RAPID_BASE}/search-v2?q=nike+shirt&country=us&language=en&limit=1&sort_by=BEST_MATCH&product_condition=ANY`,
       { headers:{'X-RapidAPI-Key':key,'X-RapidAPI-Host':RAPID_HOST} }
     );
     // Show raw status always so we can debug
@@ -659,7 +659,8 @@ async function testRapidKey() {
     if (res.ok) {
       try {
         const d = JSON.parse(bodyText);
-        const count = d.data?.length || 0;
+        const products = d.data?.products || d.products || d.data || [];
+        const count = Array.isArray(products) ? products.length : 0;
         result.innerHTML = count > 0
           ? `✅ <strong>Connected! Key works perfectly.</strong>`
           : `⚠️ Key accepted but no results returned. Try refreshing.`;
@@ -890,7 +891,7 @@ const QUERIES = {
 const BRANDS_DB = ['Nike','Adidas','Lululemon','Under Armour','Puma','New Balance','Reebok','Converse','Vans','Jordan','Asics','Fila','Saucony','Brooks','Champion','H&M','Zara','ASOS','Revolve','Free People','Anthropologie','Urban Outfitters','Mango','Ted Baker','Nordstrom','J.Crew','Gap','Old Navy','Banana Republic','Express','Forever 21','Patagonia','The North Face','Columbia','Uniqlo','Carhartt'];
 
 async function fetchRapid(key) {
-  const url = `${RAPID_BASE}/search?q=${encodeURIComponent(QUERIES[cat])}&country=us&language=en&limit=20`;
+  const url = `${RAPID_BASE}/search-v2?q=${encodeURIComponent(QUERIES[cat])}&country=us&language=en&limit=20&sort_by=BEST_MATCH&product_condition=ANY&return_filters=true`;
   const res = await fetch(url, {
     headers:{'X-RapidAPI-Key':key,'X-RapidAPI-Host':RAPID_HOST}
   });
@@ -904,8 +905,9 @@ async function fetchRapid(key) {
     throw new Error(msg);
   }
   const data = await res.json();
-  const raw = data.data||[];
-  if (!raw.length) throw new Error('Empty response');
+  // search-v2 returns data.data.products or data.products depending on version
+  const raw = data.data?.products || data.products || data.data || [];
+  if (!raw.length) throw new Error('No products returned — try a different category');
 
   const mapped = raw.map((p,i)=>{
     const photos = p.product_photos||[];
